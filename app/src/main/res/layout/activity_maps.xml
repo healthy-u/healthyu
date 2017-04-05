@@ -5,13 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity" >
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    tools:layout="?android:attr/dialogTitleDecorLayout" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,7 +18,7 @@
         android:layout_alignParentRight="true"
         android:elevation="0dp" />
 
-    <Button
+        <Button
         android:text="View Runs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +27,26 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:elevation="0dp" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_alignParentRight="true"
+            android:id="@+id/btnSettings"
+            android:src="@drawable/settings_gear"
+            />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+        tools:layout="?android:attr/dialogTitleDecorLayout"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/btnSettings"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 
 </FrameLayout>

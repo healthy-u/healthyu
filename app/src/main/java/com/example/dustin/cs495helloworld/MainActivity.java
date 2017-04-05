@@ -78,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(MainActivity.this, INITIAL_PERMS, INITIAL_REQUEST);
 
+        Long currentUserId = Long.parseLong(SaveSharedPreference.getUserName(MainActivity.this));
+
+        if (currentUserId != null && currentUserId != 0L)
+        {
+            SQLiteDatabase db = new Database(this).getReadableDatabase();
+            User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
+            Intent nextScreen = new Intent(this, MapsActivity.class);
+            startActivityForResult(nextScreen, 0);
+        }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (u != null) {
                     User.loggedInUser = u;
+                    SaveSharedPreference.setUserName(v.getContext(), u.id);
                     //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
                     System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
                     Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();

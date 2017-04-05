@@ -46,7 +46,10 @@
             android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".RunListActivity"
-            android:label="View Runs"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+            android:label="View Runs"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="View Settings"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"

@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -119,6 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
         final Button btnStartRun = (Button) findViewById(R.id.btnStartRun);
+        final ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         try {
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
         } catch (SecurityException e) {
@@ -164,6 +166,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast.makeText(v.getContext(),toastText + ": " + mState.getInt("steps", 0), Toast.LENGTH_SHORT).show();
                 btnStartRun.setText(buttonText);
+            }
+        });
+
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextScreen = new Intent(v.getContext(), SettingsActivity.class);
+                startActivityForResult(nextScreen, 0);
             }
         });
     }

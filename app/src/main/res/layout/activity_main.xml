@@ -10,35 +10,37 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.dustin.cs495helloworld.MainActivity">
 
+    <Button
+        android:text="Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLogin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="51dp"
+        android:layout_marginStart="51dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passwordTxt"
-        android:layout_marginTop="92dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:id="@+id/btnLogin"
-        android:layout_below="@+id/passwordTxt"
-        android:layout_alignLeft="@+id/passwordTxt"
-        android:layout_alignStart="@+id/passwordTxt" />
-
-    <Button
-        android:text="Register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnRegister"
-        android:layout_alignBaseline="@+id/btnLogin"
-        android:layout_alignBottom="@+id/btnLogin"
-        android:layout_alignRight="@+id/passwordTxt"
-        android:layout_alignEnd="@+id/passwordTxt" />
+        android:layout_above="@+id/btnRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,10 +48,41 @@
         android:inputType="textPersonName"
         android:text="Username"
         android:ems="10"
-        android:layout_above="@+id/btnLogin"
-        android:layout_alignRight="@+id/passwordTxt"
-        android:layout_alignEnd="@+id/passwordTxt"
-        android:layout_marginBottom="37dp"
-        android:id="@+id/usernameTxt" />
+        android:id="@+id/usernameTxt"
+        android:layout_marginBottom="15dp"
+        android:layout_above="@+id/passwordTxt"
+        android:layout_alignLeft="@+id/passwordTxt"
+        android:layout_alignStart="@+id/passwordTxt" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/walking_guy"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/usernameTxt"
+        android:layout_alignLeft="@+id/usernameTxt"
+        android:layout_alignStart="@+id/usernameTxt"
+        android:layout_marginBottom="36dp"
+        android:id="@+id/textView"
+        android:layout_alignRight="@+id/usernameTxt"
+        android:layout_alignEnd="@+id/usernameTxt" />
+
+    <TextView
+        android:text="Welcome to HealthyU!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2"
+        android:fontFamily="sans-serif"
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
 
 </RelativeLayout>

@@ -46,6 +46,22 @@ public final class Tables{
             }
         }
 
+        public static User findForID(SQLiteDatabase db, Long user_id) {
+            Cursor cursor = db.rawQuery("select * from user where cast(user_id as text) = " + user_id + ";", null);
+
+            if (cursor.getCount() == 0) return null;
+            else {
+
+                cursor.moveToFirst();
+
+                User u = selectFromCursor(cursor);
+
+                cursor.close();
+
+                return u;
+            }
+        }
+
         static public User selectFromCursor(Cursor cursor) {
             return new User(
                     cursor.getLong(cursor.getColumnIndexOrThrow("user_id")),
