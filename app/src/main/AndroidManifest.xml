@@ -60,7 +60,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".StatsActivity" />
-        <activity android:name=".ChallengeActivity"></activity>
+        <activity android:name=".ChallengeActivity" />
+        <activity android:name=".ViewRuns"></activity>
     </application>
 
 </manifest>
