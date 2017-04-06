@@ -148,7 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"Run view", Toast.LENGTH_SHORT).show();
-                Intent nextScreen = new Intent(v.getContext(), RunListActivity.class);
+                Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
                 startActivityForResult(nextScreen, 0);
             }
         });
