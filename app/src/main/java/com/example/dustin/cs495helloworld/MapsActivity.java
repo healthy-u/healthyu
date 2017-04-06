@@ -46,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        overridePendingTransition(R.anim.transistion, R.anim.transistion);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
@@ -120,6 +121,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
         final Button btnStartRun = (Button) findViewById(R.id.btnStartRun);
+        final Button btnStatsPage = (Button) findViewById(R.id.btnStatsPage);
+        final Button btnChallengePage = (Button) findViewById(R.id.btnChallengePage);
         final ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         try {
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(new Criteria(), false));
@@ -166,6 +169,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast.makeText(v.getContext(),toastText + ": " + mState.getInt("steps", 0), Toast.LENGTH_SHORT).show();
                 btnStartRun.setText(buttonText);
+            }
+        });
+
+        btnStatsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextScreen = new Intent(v.getContext(), StatsActivity.class);
+                startActivity(nextScreen);
+            }
+        });
+
+        btnChallengePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextScreen = new Intent(v.getContext(), ChallengeActivity.class);
+                startActivityForResult(nextScreen, 0);
             }
         });
 

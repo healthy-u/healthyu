@@ -8,13 +8,14 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
-        android:name="@string/step_detector" android:required="false"/>
-
+        android:name="@string/step_detector"
+        android:required="false" />
     <uses-feature
-        android:name="@string/step_counter" android:required="false"/>
+        android:name="@string/step_counter"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -43,17 +44,23 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".RunListActivity"
-            android:label="View Runs"></activity>
+            android:label="View Runs" />
         <activity
             android:name=".SettingsActivity"
-            android:label="View Settings"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+            android:label="View Settings" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".StatsActivity" />
+        <activity android:name=".ChallengeActivity"></activity>
     </application>
 
 </manifest>

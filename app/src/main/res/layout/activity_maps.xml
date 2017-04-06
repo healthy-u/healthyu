@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:background="@color/btn_blue"
+                android:background="@color/tab_blue"
                 android:elevation="0dp"
                 android:text="@string/stats"
                 android:textColor="@android:color/white" />
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:background="@color/btn_blue"
+                android:background="@color/tab_blue"
                 android:elevation="0dp"
                 android:text="@string/challenges"
                 android:textColor="@android:color/white" />

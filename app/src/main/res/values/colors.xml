@@ -6,4 +6,6 @@
     <color name="background_blue">#7ac0f7</color>
     <color name="btn_blue">#006ce5</color>
     <color name="btn_green">#01f33a</color>
+    <color name="tabIndicator_blue">#0d47a1</color>
+    <color name="tab_blue">#2196f3</color>
 </resources>
