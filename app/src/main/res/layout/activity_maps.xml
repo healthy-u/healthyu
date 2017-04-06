@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnChallengePage"
+                android:id="@+id/btnStatsPage"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:background="@color/btn_blue"
                 android:elevation="0dp"
-                android:text="@string/challenges"
+                android:text="@string/stats"
                 android:textColor="@android:color/white" />
 
             <Button
@@ -42,7 +42,7 @@
                 android:textColor="@android:color/white" />
 
             <Button
-                android:id="@+id/btnStatsPage"
+                android:id="@+id/btnChallengePage"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,8 +50,9 @@
                 android:layout_weight="1"
                 android:background="@color/btn_blue"
                 android:elevation="0dp"
-                android:text="@string/stats"
+                android:text="@string/challenges"
                 android:textColor="@android:color/white" />
+
         </LinearLayout>
 
         <ImageButton

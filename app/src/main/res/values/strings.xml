@@ -9,4 +9,8 @@
 <string name="step_detector">
          android.hardware.sensor.stepdetector
    </string>
+    <string name="stats">Stats</string>
+    <string name="run">Run</string>
+    <string name="challenges">Challenges</string>
+    <string name="start_run">Start Run</string>
 </resources>
