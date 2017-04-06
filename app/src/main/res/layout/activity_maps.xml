@@ -3,49 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" >
+    tools:context=".MapsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <Button
-        android:text="Start Run"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnStartRun"
-        android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:elevation="0dp" />
+        android:layout_height="match_parent"
+        android:background="@color/background_blue">
 
-        <Button
-        android:text="View Runs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnViewRuns"
-        android:layout_gravity="bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:elevation="0dp" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnChallengePage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@color/btn_blue"
+                android:elevation="0dp"
+                android:text="@string/challenges"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnRunPage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:background="@color/btn_green"
+                android:text="@string/run"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnStatsPage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:background="@color/btn_blue"
+                android:elevation="0dp"
+                android:text="@string/stats"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
         <ImageButton
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_alignParentRight="true"
             android:id="@+id/btnSettings"
-            android:src="@drawable/settings_gear"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:src="@drawable/settings_gear" />
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="300dp"
             android:layout_height="300dp"
-        tools:layout="?android:attr/dialogTitleDecorLayout"
-            android:layout_marginTop="15dp"
             android:layout_below="@+id/btnSettings"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            tools:layout="?android:attr/dialogTitleDecorLayout" />
+
+        <Button
+            android:id="@+id/btnStartRun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="45dp"
+            android:text="@string/start_run" />
+
+        <Button
+            android:id="@+id/btnViewRuns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/btnStartRun"
+            android:layout_marginEnd="14dp"
+            android:layout_marginRight="14dp"
+            android:text="Button" />
 
     </RelativeLayout>
 
