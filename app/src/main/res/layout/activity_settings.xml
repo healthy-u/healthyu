@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_blue">>
 
     <Button
         android:text="Sign Out"
         android:layout_width="192dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:id="@+id/btnLogout"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
