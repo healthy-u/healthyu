@@ -10,9 +10,6 @@ import android.widget.ListView;
 import java.util.List;
 
 public class RunListActivity extends Activity {
-    // Array of strings...
-    String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry",
-            "WebOS","Ubuntu","Windows7","Max OS X"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +19,6 @@ public class RunListActivity extends Activity {
         SQLiteDatabase db = new Database(this).getReadableDatabase();
 
         List<Run> runs = Tables.RunTable.findForUser(db, User.loggedInUser);
-
-        //ArrayAdapter adapter = new ArrayAdapter<Run>(this, R.layout.activity_listview, Tables.RunTable.findForUser(db, User.loggedInUser));
 
         ArrayAdapter adapter = new ArrayAdapter<Run>(this, R.layout.simple_list_item_1, runs);
 

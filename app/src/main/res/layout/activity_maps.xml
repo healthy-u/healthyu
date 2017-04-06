@@ -90,7 +90,7 @@
             android:layout_alignTop="@+id/btnStartRun"
             android:layout_marginEnd="14dp"
             android:layout_marginRight="14dp"
-            android:text="Button" />
+            android:text="View Runs" />
 
     </RelativeLayout>
 
