@@ -79,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onSensorChanged(SensorEvent event) {
 
-        final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
+        /*final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
 
         Sensor sensor = event.sensor;
         float[] values = event.values;
@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else if (sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
             // For test only. Only allowed value is 1.0 i.e. for step taken
             btnViewRuns.setText("SD: " + value);
-        }
+        }*/
     }
 
     @Override
@@ -119,7 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Location location = null;
 
-        final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
+        //final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
         final Button btnStartRun = (Button) findViewById(R.id.btnStartRun);
         final Button btnStatsPage = (Button) findViewById(R.id.btnStatsPage);
         final Button btnChallengePage = (Button) findViewById(R.id.btnChallengePage);
@@ -144,14 +144,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(cameraUpdate);
 
 
-        btnViewRuns.setOnClickListener(new View.OnClickListener() {
+        /*btnViewRuns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"Run view", Toast.LENGTH_SHORT).show();
                 Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
                 startActivityForResult(nextScreen, 0);
             }
-        });
+        });*/
 
         btnStartRun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String buttonText = "Start Run";
                 if (onRun) buttonText = "Stop Run";
 
-                Toast.makeText(v.getContext(),toastText + ": " + mState.getInt("steps", 0), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),toastText , Toast.LENGTH_SHORT).show();
                 btnStartRun.setText(buttonText);
             }
         });

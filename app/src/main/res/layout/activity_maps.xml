@@ -83,15 +83,6 @@
             android:layout_marginBottom="45dp"
             android:text="@string/start_run" />
 
-        <Button
-            android:id="@+id/btnViewRuns"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/btnStartRun"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="14dp"
-            android:text="View Runs" />
-
     </RelativeLayout>
 
 </FrameLayout>
