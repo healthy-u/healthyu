@@ -97,6 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 String username = usernameTxt.getText().toString();
                 String password = passwordTxt.getText().toString();
 
+
+                // sponsor login
+                if (username.equals("sponsor")) {
+                    Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
+                    startActivityForResult(nextScreen, 0);
+
+                }
+
                 User u = Tables.UserTable.findForUsernameAndPassword(db, username, password);
 
                 if (u != null) {
@@ -105,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
                     System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
                     Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+
                     Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                     startActivityForResult(nextScreen, 0);
+
                 } else Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
 
                 passwordTxt.setText("");

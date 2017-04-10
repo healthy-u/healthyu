@@ -61,7 +61,11 @@
 
         <activity android:name=".StatsActivity" />
         <activity android:name=".ChallengeActivity" />
-        <activity android:name=".ViewRuns"></activity>
+        <activity android:name=".ViewRuns" />
+        <activity android:name=".Main_sponsor" />
+        <activity android:name=".Create_Challeng" />
+        <activity android:name=".CreateChal_sponsor" />
+        <activity android:name=".ChalList_s"></activity>
     </application>
 
 </manifest>
