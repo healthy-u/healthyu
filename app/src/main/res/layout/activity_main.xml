@@ -35,28 +35,6 @@
         android:text="Login"
         android:textColor="@android:color/white" />
 
-    <EditText
-        android:id="@+id/passwordTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameTxt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/usernameTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordTxt"
-        android:layout_alignStart="@+id/passwordTxt"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="76dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Username" />
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="150dp"
@@ -78,5 +56,27 @@
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="normal|bold" />
+
+    <EditText
+        android:id="@+id/passwordTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_below="@+id/usernameTxt"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/usernameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Username"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/passwordTxt"
+        android:layout_alignStart="@+id/passwordTxt"
+        android:layout_marginTop="68dp" />
 
 </RelativeLayout>
