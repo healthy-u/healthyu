@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:background="#0E6DB0"
+        android:background="@color/btn_blue"
         android:orientation="horizontal"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
@@ -30,7 +30,7 @@
                 android:id="@+id/button1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/btn_blue"
                 android:onClick="buttonOnClick1"
                 android:text="PERSONAL" />
         </LinearLayout>
@@ -48,7 +48,7 @@
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/btn_blue"
                 android:onClick="buttonOnClick2"
                 android:text="FRENDS" />
         </LinearLayout>
@@ -67,7 +67,7 @@
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/btn_blue"
                 android:onClick="buttonOnClick3"
                 android:text="TEAM" />
         </LinearLayout>
@@ -85,7 +85,7 @@
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/btn_blue"
                 android:onClick="buttonOnClick4"
                 android:text="CAMPUS" />
 

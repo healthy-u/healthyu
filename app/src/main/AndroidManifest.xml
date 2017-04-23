@@ -65,7 +65,12 @@
         <activity android:name=".Main_sponsor" />
         <activity android:name=".Create_Challeng" />
         <activity android:name=".CreateChal_sponsor" />
-        <activity android:name=".ChalList_s"></activity>
+        <activity android:name=".ChalList_s" />
+        <activity android:name=".challenge_info" />
+        <activity android:name=".DelChal_sponsor" />
+        <activity android:name=".EditChal_sponsor" />
+        <activity android:name=".challenge_info_edit" />
+        <activity android:name=".Set_sponsor"></activity>
     </application>
 
 </manifest>
