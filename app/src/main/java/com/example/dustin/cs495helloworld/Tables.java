@@ -1,21 +1,77 @@
 package com.example.dustin.cs495helloworld;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
+import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.text.ParseException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public final class Tables{
+public final class Tables extends AsyncTask<String, Void, String> {
+
+    public static final String baseUrl = "http://73.58.10.151";
+    public static java.net.URL url;
+
+    public static void initialize() {
+        try {
+            url = new URL(baseUrl);
+            System.out.println("url: " + url.toString());
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    protected String doInBackground(String[] params) {
+        // do above Server call here
+        return "some message";
+    }
+
+    public static void setUrl(String fileName, String params) {
+        try {
+            url = new URL(baseUrl + "/" + fileName + ".php" + params);
+        }
+        catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static JSONArray hitDB(String filename, String method, String params) {
+        final JSONArray[] result = new JSONArray[1];
+        result[0] = null;
+        try
+
+        {
+            setUrl(filename, params);
+            System.out.println(filename + ".php" + params);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+            conn.connect();
+            result[0] = convertStreamToJson(conn.getInputStream());
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result[0];
+    }
+
     private Tables() {}
 
-    public static class UserTable implements BaseColumns {
+    public static class UserTable {
         public static final String TABLE_NAME = "user";
 
-        public static final String CREATE_TABLE_STATEMENT = "CREATE TABLE user ("
+        public static final String CREATE_TABLE_STATEMENT = "CREATE TABLE user"
                 + "user_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + "user_firstname VARCHAR(20) NOT NULL,"
                 + "user_lastname VARCHAR(20) NOT NULL,"
@@ -30,52 +86,92 @@ public final class Tables{
 
         public static final String[] columns = {"user_id", "user_firstname", "user_lastname", "user_username", "user_email", "lifetime_points", "team_id"};
 
-        public static User findForUsernameAndPassword(SQLiteDatabase db, String username, String pass) {
-            Cursor cursor = db.query(Tables.UserTable.TABLE_NAME, Tables.UserTable.columns, "user_username = ? and user_password = ?", new String[]{username, pass}, null, null, null);
 
-            if (cursor.getCount() == 0) return null;
-            else {
+        public static User findForUsernameAndPassword(String username, String pass) {
 
-                cursor.moveToFirst();
+            final User[] result = new User[1];
+            result[0] = null;
+            final String finalUsername = username;
+            final String finalPass = pass;
 
-                User u = selectFromCursor(cursor);
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?username=" + finalUsername + "&password=" + finalPass;
+                        result[0] = fromJson(hitDB("login", "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
 
-                cursor.close();
+            thread.start();
 
-                return u;
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
             }
+
+            System.out.println(result[0]);
+            return result[0];
         }
 
-        public static User findForID(SQLiteDatabase db, Long user_id) {
-            Cursor cursor = db.rawQuery("select * from user where cast(user_id as text) = " + user_id + ";", null);
+        public static User findForID(Long user_id) {
+            final User[] result = new User[1];
+            result[0] = null;
+            final String id = String.valueOf(user_id);
 
-            if (cursor.getCount() == 0) return null;
-            else {
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        result[0] = fromJson(hitDB("users", "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
 
-                cursor.moveToFirst();
+            thread.start();
 
-                User u = selectFromCursor(cursor);
-
-                cursor.close();
-
-                return u;
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
             }
+
+            System.out.println("USER FIND FOR ID: " + result[0]);
+            return result[0];
         }
 
-        static public User selectFromCursor(Cursor cursor) {
-            return new User(
-                    cursor.getLong(cursor.getColumnIndexOrThrow("user_id")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("user_firstname")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("user_lastname")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("user_username")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("user_email")),
-                    new BigDecimal(cursor.getFloat(cursor.getColumnIndexOrThrow("lifetime_points"))),
-                    cursor.getLong(cursor.getColumnIndexOrThrow("team_id"))
-            );
+        static public User fromJson(JSONArray jsonArray) {
+            try {
+                JSONObject json = jsonArray.getJSONObject(0);
+                Long team_id = 0L;
+                if (json.getString(("team_id")) != "null") team_id = Long.parseLong(json.getString(("team_id")));
+                return new User(
+                        Long.parseLong(json.getString("user_id")),
+                        json.getString("user_firstname"),
+                        json.getString("user_lastname"),
+                        json.getString("user_username"),
+                        json.getString("user_email"),
+                        new BigDecimal(json.getString("lifetime_points")),
+                        team_id
+                );
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
-    public static class RunTable implements BaseColumns {
+    public static class RunTable {
+
+        public static final String FILE_NAME = "runs";
 
         public static final String TABLE_NAME = "run";
 
@@ -92,39 +188,85 @@ public final class Tables{
                 + "end_time DATETIME NOT NULL)";
 
 
-        public static List<Run> findForUser(SQLiteDatabase db, User u) {
-            Cursor cursor = db.rawQuery("select * from run where cast(user_id as text) = " + u.id + ";", null);
 
+        public static List<Run> findForUser(User u) {
+            final List<Run> runs = new ArrayList<Run>();
+            final String id = String.valueOf(u.id);
 
-            if (cursor.getCount() == 0) return null;
-            else {
-
-                ArrayList<Run> runs  = new ArrayList<Run>();
-
-                while (cursor.moveToNext()) {
-                    runs.add(selectFromCursor(cursor));
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        runs.addAll(fromJson(hitDB("runs", "GET", paramString)));
+                        System.out.println(runs.get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            };
 
-                cursor.close();
+            thread.start();
 
-                return runs;
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
             }
+
+            System.out.println(runs);
+            return runs;
         }
 
-        public static Run selectFromCursor(Cursor cursor) {
+        public static List<Run> fromJson(JSONArray jsons) {
+            List<Run> runs = new ArrayList<Run>();
             try {
-                return new Run(
-                        cursor.getLong(cursor.getColumnIndexOrThrow("run_id")),
-                        cursor.getLong(cursor.getColumnIndexOrThrow("user_id")),
-                        new BigDecimal(cursor.getFloat(cursor.getColumnIndexOrThrow("mile_count"))),
-                        cursor.getString(cursor.getColumnIndexOrThrow("trail_coords")),
-                        Database.dateFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow("start_time"))),
-                        Database.dateFormat.parse(cursor.getString(cursor.getColumnIndexOrThrow("end_time")))
-                );
-            } catch (ParseException e) {
+                for (int i = 0; i < jsons.length(); i++) {
+                    JSONObject json = jsons.getJSONObject(i);
+                    runs.add(new Run(
+                            Long.parseLong(json.getString("run_id")),
+                            Long.parseLong(json.getString("user_id")),
+                            new BigDecimal(json.getString("mile_count")),
+                            json.getString("trail_coords"),
+                            Database.dateFormat.parse(json.getString("start_time")),
+                            Database.dateFormat.parse(json.getString("end_time"))
+                    ));
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
                 return null;
             }
+            return runs;
         }
+    }
+
+    private static JSONArray convertStreamToJson(InputStream is) {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        JSONArray result = null;
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            System.out.println("sb.toString: " + sb.toString());
+            result = new JSONArray(sb.toString());
+        } catch (Exception e) {
+            result = null;
+            e.printStackTrace();
+        }
+        return result;
     }
 }

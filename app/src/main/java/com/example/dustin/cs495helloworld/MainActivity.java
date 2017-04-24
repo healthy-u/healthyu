@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentUserId != null && currentUserId != 0L)
         {
             SQLiteDatabase db = new Database(this).getReadableDatabase();
-            User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
+            User.loggedInUser = Tables.UserTable.findForUsernameAndPassword("testuser", "password");//Tables.UserTable.findForID(currentUserId);
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
@@ -97,13 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 String username = usernameTxt.getText().toString();
                 String password = passwordTxt.getText().toString();
 
-                User u = Tables.UserTable.findForUsernameAndPassword(db, username, password);
+                User u = Tables.UserTable.findForUsernameAndPassword(username, password);
 
                 if (u != null) {
+                    Tables.RunTable.findForUser(u);
                     User.loggedInUser = u;
                     SaveSharedPreference.setUserName(v.getContext(), u.id);
-                    //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
-                    System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
                     Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                     startActivityForResult(nextScreen, 0);

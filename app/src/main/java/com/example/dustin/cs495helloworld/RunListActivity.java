@@ -18,7 +18,7 @@ public class RunListActivity extends Activity {
 
         SQLiteDatabase db = new Database(this).getReadableDatabase();
 
-        List<Run> runs = Tables.RunTable.findForUser(db, User.loggedInUser);
+        List<Run> runs = Tables.RunTable.findForUser(User.loggedInUser);
 
         ArrayAdapter adapter = new ArrayAdapter<Run>(this, R.layout.simple_list_item_1, runs);
 

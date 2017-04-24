@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 
 public class StatsActivity extends AppCompatActivity {
 
@@ -22,6 +24,12 @@ public class StatsActivity extends AppCompatActivity {
 
         final Button btnRunPage = (Button) findViewById(R.id.btnRunPage);
         final Button btnChallengePage = (Button) findViewById(R.id.btnChallengePage);
+
+        System.out.println("id: " + User.loggedInUser.id);
+
+        List<Run> runs = Tables.RunTable.findForUser(User.loggedInUser);
+
+        System.out.println(runs);
 
         btnRunPage.setOnClickListener(new View.OnClickListener() {
             @Override

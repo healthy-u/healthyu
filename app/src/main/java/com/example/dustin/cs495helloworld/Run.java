@@ -43,7 +43,7 @@ public class Run {
         values.put("start_time", Database.dateToSqlString(startTime));
         values.put("end_time", Database.dateToSqlString(dbEndTime));
 
-        long newId = db.insert(Tables.RunTable.TABLE_NAME, null, values);
+        long newId = db.insert("run", null, values);
         this.id = newId;
         return this;
     }
