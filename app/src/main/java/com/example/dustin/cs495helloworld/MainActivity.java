@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 /*
 
-
                 User user = new User("First", "Name", username, "email@email.com");
 
                 SQLiteDatabase db = new Database(v.getContext()).getWritableDatabase();
