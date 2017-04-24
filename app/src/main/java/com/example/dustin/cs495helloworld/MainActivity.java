@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         {
             SQLiteDatabase db = new Database(this).getReadableDatabase();
             //User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
-            //
+            //  use
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
