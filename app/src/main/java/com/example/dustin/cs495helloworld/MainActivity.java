@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -25,14 +26,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.Date;
 
 import static com.example.dustin.cs495helloworld.R.id.btnRegister;
-
 public class MainActivity extends AppCompatActivity {
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    public static final Class_Runner_list  CRlst=new Class_Runner_list();
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -99,12 +101,26 @@ public class MainActivity extends AppCompatActivity {
 
 
                 // sponsor login
+
                 if (username.equals("sponsor")) {
                     Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
                     startActivityForResult(nextScreen, 0);
 
+                }else if (CRlst.login(username,password)){
+                    Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+                    Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                    int id=CRlst.getRunner(username).id;
+                    CRlst.uid=id;
+                    nextScreen.putExtra("id",id);
+                    startActivityForResult(nextScreen, 0);
+
+                }else{
+                    Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
                 }
 
+
+
+                /*
                 User u = Tables.UserTable.findForUsernameAndPassword(db, username, password);
 
                 if (u != null) {
@@ -119,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
 
-                passwordTxt.setText("");
+                passwordTxt.setText("");*/
             }
 
 
@@ -128,9 +144,19 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText uname=(EditText) findViewById(R.id.usernameTxt);
+                EditText psd=(EditText) findViewById(R.id.passwordTxt);
 
-                String username = usernameTxt.getText().toString();
-                String password = passwordTxt.getText().toString();
+                String username = uname.getText().toString();
+                String password = psd.getText().toString();
+
+                if (! CRlst.register(username,password)){
+                    Toast.makeText(v.getContext(), username + ": exist!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(v.getContext(),  username+ ": accountCreated", Toast.LENGTH_SHORT).show();
+
+                }
+                /*
 
                 User user = new User("First", "Name", username, "email@email.com");
 
@@ -142,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                 startActivityForResult(nextScreen, 0);
 
-                passwordTxt.setText("");
+                passwordTxt.setText("");*/
             }
 
 

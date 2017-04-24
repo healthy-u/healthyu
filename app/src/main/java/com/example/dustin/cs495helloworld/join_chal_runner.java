@@ -9,13 +9,12 @@ import android.widget.RadioButton;
 
 import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
 
-
-public class challenge_info extends AppCompatActivity {
+public class join_chal_runner extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_challenge_info);
+        setContentView(R.layout.activity_join_chal_runner);
         Intent n=getIntent();
         EditText Tname,Tinfo,Ttag,Tdate;
         RadioButton rbp,rbt;
@@ -42,8 +41,7 @@ public class challenge_info extends AppCompatActivity {
         }
         rbt.setEnabled(false);
         rbp.setEnabled(false);
+
     }
-    void btnBack(View v){
-        finish();
-    }
+    void btnjoin(View v) {finish();}
 }

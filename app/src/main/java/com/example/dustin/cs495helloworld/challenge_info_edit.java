@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 
 import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
@@ -22,7 +20,7 @@ public class challenge_info_edit extends AppCompatActivity {
         EditText Tname,Tinfo,Ttag,Tdate;
         RadioButton rbp,rbt;
         i=n.getIntExtra("index",0);
-        Challenge_class chal=Chal_list.Clist.get(i);
+        Class_Challenge chal=Chal_list.Clist.get(i);
 
         Tname=(EditText) findViewById(R.id.edit_name);
         Tname.setText(chal.name);
@@ -61,7 +59,7 @@ public class challenge_info_edit extends AppCompatActivity {
         info=editinfo.getText().toString();
         target=edittarget.getText().toString();
         date=editdate.getText().toString();
-        Challenge_class chal=Chal_list.Clist.get(i);
+        Class_Challenge chal=Chal_list.Clist.get(i);
         chal.name=name;
         chal.info=info;
         chal.target=Integer.parseInt(target);

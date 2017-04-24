@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_blue">
-
-
+    tools:context="com.example.dustin.cs495helloworld.runner_info">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/background_blue">
+        <TextView
+            android:id="@+id/title11"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/btn_blue"
+            android:gravity="center"
+            android:text="Runner "
+            android:shadowColor="@color/black"
+            android:shadowRadius="10"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:textSize="30dp" />
+
 
         <TextView
             android:id="@+id/textView3"
@@ -17,7 +34,7 @@
             android:layout_marginTop="5dp"
             android:text="User Name"
             android:textSize="25dp"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/title11"
             android:layout_toRightOf="@+id/imageButton"
             android:layout_toEndOf="@+id/imageButton" />
 
@@ -57,7 +74,7 @@
             android:layout_height="120dp"
             android:textSize="20dp"
             app:srcCompat="@drawable/user1"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/title11"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -204,8 +221,24 @@
             android:layout_below="@+id/textView22"
             android:text="Date--------------------------"
             android:textSize="20dp" />
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:background="@color/btn_blue"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:onClick="btnBack"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
 
 
 
     </RelativeLayout>
-</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

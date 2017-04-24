@@ -1,12 +1,10 @@
 package com.example.dustin.cs495helloworld;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
 
@@ -41,7 +39,7 @@ public class CreateChal_sponsor extends AppCompatActivity {
         target=edittarget.getText().toString();
         date=editdate.getText().toString();
 
-        Challenge_class Chal=new Challenge_class(name,info,Integer.parseInt(target),date,type);
+        Class_Challenge Chal=new Class_Challenge(name,info,Integer.parseInt(target),date,type);
         Chal_list.add(Chal);
 
         finish();
