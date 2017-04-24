@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dustin.cs495helloworld.ChalList_s">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/background_blue">
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/btn_blue">
+
+        <TextView
+            android:id="@+id/t1"
+            android:text="Challengs List"
+            android:textSize="30dp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="10"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background_blue"
+            android:layout_below="@+id/l1">
+
+
+            <ListView
+                android:id="@+id/listview_chal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </ListView>
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:onClick="btnback"
+            android:background="@color/btn_blue"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
