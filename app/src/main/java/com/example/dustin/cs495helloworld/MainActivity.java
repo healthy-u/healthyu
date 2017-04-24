@@ -85,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         if (currentUserId != null && currentUserId != 0L)
         {
             SQLiteDatabase db = new Database(this).getReadableDatabase();
-            User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
+            //User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
+            //
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
