@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dustin.cs495helloworld.Set_sponsor">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/background_blue"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/btn_blue"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowRadius="10"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:text="Sponsor Setting"
+            android:textSize="30dp" />
+
+
+        <TextView
+            android:id="@+id/sponsorname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Sponsorname"
+            android:textSize="30dp"
+            android:layout_below="@+id/title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/oldpsw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Old Password:"
+            android:textSize="25dp"
+            android:layout_below="@+id/sponsorname"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+
+        <TextView
+            android:id="@+id/newpaw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/eoldpsw"
+            android:gravity="center"
+            android:text="Input New Password:"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/newpaw2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Confirm New Password:"
+            android:textSize="25dp"
+            android:layout_below="@+id/enewpsw"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/eoldpsw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/oldpsw"
+            android:ems="15"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/enewpsw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/newpaw"
+            android:ems="15"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/enewpsw2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/newpaw2"
+            android:ems="15"
+            android:inputType="textPassword" />
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/btn_blue"
+            android:text="Save"
+            android:onClick="btnsave"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -47,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         overridePendingTransition(R.anim.transistion, R.anim.transistion);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
@@ -149,8 +150,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"Run view", Toast.LENGTH_SHORT).show();
-                Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
-                startActivityForResult(nextScreen, 0);
+                Intent n = new Intent(v.getContext(), ViewRuns.class);
+                startActivityForResult(n, 0);
             }
         });*/
 
@@ -177,7 +178,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                Intent nextScreen = new Intent(v.getContext(), StatsActivity.class);
+                //Intent nextScreen = new Intent(v.getContext(), StatsActivity.class);
+                Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
                 startActivity(nextScreen);
             }
         });

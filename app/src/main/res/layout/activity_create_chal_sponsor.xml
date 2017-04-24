@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dustin.cs495helloworld.CreateChal_sponsor">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/background_blue">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/btn_blue"
+        android:gravity="center"
+        android:shadowColor="@color/black"
+        android:shadowRadius="10"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:text="Create Challenge"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Challenge Name :"
+        android:textSize="25dp"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textName"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/edit_name"
+        android:text="Information :"
+        android:textSize="25dp" />
+    <EditText
+        android:id="@+id/edit_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/textinfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="Target :"
+        android:textSize="25dp"
+        android:layout_below="@+id/edit_info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/edit_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView25"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"/>
+
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/edit_target"
+        android:layout_alignBottom="@+id/edit_target"
+        android:textColor="@color/black"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_toEndOf="@+id/edit_target"
+        android:layout_toRightOf="@+id/edit_target"
+        android:text="Steps"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edit_target"
+        android:text="Due Date :"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edit_date"
+        android:text="Type :"
+        android:textSize="25dp" />
+
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/textView30"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_personal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Personal"
+            android:checked="true"
+            android:onClick="rdp"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/rb_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Team"
+            android:onClick="rdt"
+            android:textSize="20dp"
+            android:textColor="@color/black" />
+
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/edit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/black"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView28"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:background="@color/btn_blue"
+        android:textColor="@color/black"
+        android:onClick="btnCreated"
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

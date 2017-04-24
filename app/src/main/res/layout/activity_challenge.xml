@@ -7,6 +7,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue">
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/btn_blue">
+
+        <TextView
+            android:id="@+id/t1"
+            android:text="Challengs List"
+            android:textSize="30dp"
+            android:shadowColor="@color/black"
+            android:shadowRadius="10"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/background_blue"
+        android:layout_below="@+id/l1">
+
+
+        <ListView
+            android:id="@+id/listview_chal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -53,12 +89,5 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="@string/challenges" />
+
 </RelativeLayout>
