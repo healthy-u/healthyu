@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/btn_blue"
                 android:onClick="buttonOnClick2"
-                android:text="FRENDS" />
+                android:text="FRIENDS" />
         </LinearLayout>
 
         <LinearLayout

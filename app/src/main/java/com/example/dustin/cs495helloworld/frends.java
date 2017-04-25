@@ -15,7 +15,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
 import static com.example.dustin.cs495helloworld.MainActivity.CRlst;
 
 public class frends  extends Fragment implements AdapterView.OnItemClickListener {

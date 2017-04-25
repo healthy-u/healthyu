@@ -5,12 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.List;
+
 
 public class Main_sponsor extends AppCompatActivity {
 
-
-
-    public static final Class_Challenges_list Chal_list=new Class_Challenges_list();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

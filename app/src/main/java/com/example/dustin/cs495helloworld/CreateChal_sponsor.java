@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
-
 public class CreateChal_sponsor extends AppCompatActivity {
 
     String type="p";
@@ -39,8 +37,8 @@ public class CreateChal_sponsor extends AppCompatActivity {
         target=edittarget.getText().toString();
         date=editdate.getText().toString();
 
-        Class_Challenge Chal=new Class_Challenge(name,info,Integer.parseInt(target),date,type);
-        Chal_list.add(Chal);
+        //Challenge Chal=new Challenge(name,info,Integer.parseInt(target),date,type);
+        //Chal_list.add(Chal);
 
         finish();
     }

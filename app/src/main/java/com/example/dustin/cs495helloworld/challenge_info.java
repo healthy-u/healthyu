@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
-
 
 public class challenge_info extends AppCompatActivity {
 
@@ -20,26 +18,26 @@ public class challenge_info extends AppCompatActivity {
         EditText Tname,Tinfo,Ttag,Tdate;
         RadioButton rbp,rbt;
         int i=n.getIntExtra("index",0);
-        Class_Challenge chal=Chal_list.Clist.get(i);
+        Challenge chal=Challenge.challenges.get(i);
 
         Tname=(EditText) findViewById(R.id.edit_name);
         Tname.setText(chal.name);
         Tinfo=(EditText) findViewById(R.id.edit_info);
-        Tinfo.setText(chal.info);
+        Tinfo.setText(chal.id.toString());
         Ttag=(EditText) findViewById(R.id.edit_target);
-        Ttag.setText(String.valueOf(chal.target));
+        Ttag.setText(String.valueOf(chal.prize_id));
         Tdate=(EditText) findViewById(R.id.edit_date);
-        Tdate.setText(chal.due_Date);
+        Tdate.setText(chal.start_date + "-" + chal.end_date);
         rbp=(RadioButton)findViewById(R.id.rb_personal);
         rbt=(RadioButton)findViewById(R.id.rb_team);
-        if(chal.type.equals("t")){
+        /*if(chal.type.equals("t")){
             rbt.setChecked(true);
             rbp.setChecked(false);
 
-        }else{
+        }else{*/
             rbp.setChecked(true);
             rbt.setChecked(false);
-        }
+        //}
         rbt.setEnabled(false);
         rbp.setEnabled(false);
     }

@@ -270,4 +270,226 @@ public final class Tables extends AsyncTask<String, Void, String> {
         return result;
     }
 
+    public static class ChallengeTable {
+
+        public static final String FILE_NAME = "event";
+
+        public static final String FILE_NAME_USER = "user/event";
+
+        public static final String TABLE_NAME = "event";
+
+        public static List<Challenge> findForUser(User u) {
+            final List<Challenge> challenges = new ArrayList<Challenge>();
+            final String id = String.valueOf(u.id);
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        challenges.addAll(fromJson(hitDB(FILE_NAME_USER, "GET", paramString)));
+                        System.out.println(challenges.get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("CHALLENGES: " + challenges);
+            return challenges;
+        }
+
+        public static List<Challenge> fromJson(JSONArray jsons) {
+            List<Challenge> challenges = new ArrayList<Challenge>();
+            try {
+                for (int i = 0; i < jsons.length(); i++) {
+                    JSONObject json = jsons.getJSONObject(i);
+                    challenges.add(new Challenge(
+                            Long.parseLong(json.getString("event_id")),
+                            Long.parseLong(json.getString("sponsor_id")),
+                            Long.parseLong(json.getString("prize_id")),
+                            Database.dateFormat.parse(json.getString("start_date")),
+                            Database.dateFormat.parse(json.getString("end_date")),
+                            json.getString("event_name")
+                    ));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            return challenges;
+        }
+    }
+
+    public static class SponsorTable {
+        public static final String LOGIN_FILENAME = "sponsor-login";
+        public static final String FILENAME = "sponsor";
+
+
+        public static Sponsor findForUsernameAndPassword(String username, String pass) {
+
+            final Sponsor[] result = new Sponsor[1];
+            result[0] = null;
+            final String finalUsername = username;
+            final String finalPass = pass;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?username=" + finalUsername + "&password=" + finalPass;
+                        result[0] = fromJson(hitDB(LOGIN_FILENAME, "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            return result[0];
+        }
+
+        public static Sponsor findForID(Long user_id) {
+            final Sponsor[] result = new Sponsor[1];
+            result[0] = null;
+            final String id = String.valueOf(user_id);
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        result[0] = fromJson(hitDB("users", "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("SPONSOR FIND FOR ID: " + result[0]);
+            return result[0];
+        }
+
+        static public Sponsor fromJson(JSONArray jsonArray) {
+            try {
+                JSONObject json = jsonArray.getJSONObject(0);
+
+                return new Sponsor(
+                        Long.parseLong(json.getString("sponsor_id")),
+                        json.getString("user_username"),
+                        json.getString("user_email"),
+                        Long.parseLong(json.getString(("campus_id")))
+                );
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    public static class TeamTable {
+        public static final String LOGIN_FILENAME = "sponsor-login";
+        public static final String FILENAME = "sponsor";
+
+
+        public static Sponsor findForUsernameAndPassword(String username, String pass) {
+
+            final Sponsor[] result = new Sponsor[1];
+            result[0] = null;
+            final String finalUsername = username;
+            final String finalPass = pass;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?username=" + finalUsername + "&password=" + finalPass;
+                        result[0] = fromJson(hitDB(LOGIN_FILENAME, "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            return result[0];
+        }
+
+        public static Sponsor findForID(Long user_id) {
+            final Sponsor[] result = new Sponsor[1];
+            result[0] = null;
+            final String id = String.valueOf(user_id);
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        result[0] = fromJson(hitDB("users", "GET", paramString));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("SPONSOR FIND FOR ID: " + result[0]);
+            return result[0];
+        }
+
+        static public Sponsor fromJson(JSONArray jsonArray) {
+            try {
+                JSONObject json = jsonArray.getJSONObject(0);
+
+                return new Sponsor(
+                        Long.parseLong(json.getString("sponsor_id")),
+                        json.getString("user_username"),
+                        json.getString("user_email"),
+                        Long.parseLong(json.getString(("campus_id")))
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
 }

@@ -13,8 +13,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
-
 public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     List<String> cname=new ArrayList<String>();
@@ -25,9 +23,10 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chal_list_s);
+        Challenge.challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
         cname.clear();
-        for (int i=0;i<Chal_list.size;i++){
-            cname.add(Chal_list.Clist.get(i).name);
+        for (int i=0;i<Challenge.challenges.size();i++){
+            cname.add(Challenge.challenges.get(i).name);
         }
 
 
