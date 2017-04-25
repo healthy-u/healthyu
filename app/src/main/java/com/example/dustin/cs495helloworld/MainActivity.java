@@ -85,8 +85,10 @@ public class MainActivity extends AppCompatActivity {
         if (currentUserId != null && currentUserId != 0L)
         {
             SQLiteDatabase db = new Database(this).getReadableDatabase();
-            //User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
-            //use
+            User.loggedInUser = Tables.UserTable.findForID(currentUserId);
+            System.out.println("******************");
+            System.out.println("LOGGED IN : " + User.loggedInUser);
+            //  use
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
                     startActivityForResult(nextScreen, 0);
 
-                }else if (CRlst.login(username,password)){
+                }/*else if (CRlst.login(username,password)){
                     Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                     int id=CRlst.getRunner(username).id;
@@ -117,26 +119,39 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                }*/
+                else {
+
+                    User u = Tables.UserTable.findForUsernameAndPassword(username, password);
+
+                    if (u != null) {
+                        User.loggedInUser = u;
+                        SaveSharedPreference.setUserName(v.getContext(), u.id);
+                        //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
+                        System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
+                        Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+
+                        Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                        startActivityForResult(nextScreen, 0);
+
+                    } else {
+                        Sponsor s = Tables.SponsorTable.findForUsernameAndPassword(username, password);
+                        if (s != null) {
+                            Sponsor.loggedInSponsor = s;
+                            //SaveSharedPreference.setSponsorName(v.getContext(), u.id);
+                            // Run run = new Run(User.loggedInUser.id, new Date()).create(db);
+                            System.out.println("Sponsor.loggedInSponsor.id: " + Sponsor.loggedInSponsor.id);
+                            Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+
+                            Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                            startActivityForResult(nextScreen, 0);
+                            }
+
+                        Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-
-
-                /*
-                User u = Tables.UserTable.findForUsernameAndPassword(db, username, password);
-
-                if (u != null) {
-                    User.loggedInUser = u;
-                    SaveSharedPreference.setUserName(v.getContext(), u.id);
-                    //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
-                    System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
-                    Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
-
-                    Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
-                    startActivityForResult(nextScreen, 0);
-
-                } else Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
-
-                passwordTxt.setText("");*/
+                 passwordTxt.setText("");
             }
 
 
@@ -145,8 +160,18 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextScreen = new Intent(v.getContext(), regisetr.class);
-                startActivity(nextScreen);
+                EditText uname=(EditText) findViewById(R.id.usernameTxt);
+                EditText psd=(EditText) findViewById(R.id.passwordTxt);
+
+                String username = uname.getText().toString();
+                String password = psd.getText().toString();
+
+                if (! CRlst.register(username,password)){
+                    Toast.makeText(v.getContext(), username + ": exist!", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(v.getContext(),  username+ ": accountCreated", Toast.LENGTH_SHORT).show();
+
+                }
                 /*
 
 

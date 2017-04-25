@@ -12,8 +12,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
-
 public class ChallengeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     List<String> cname=new ArrayList<String>();
@@ -25,9 +23,12 @@ public class ChallengeActivity extends AppCompatActivity implements AdapterView.
         setContentView(R.layout.activity_challenge);
         overridePendingTransition(R.anim.transistion, R.anim.transistion);
 
+        System.out.println("LOGGED IN: " + User.loggedInUser);
+        Challenge.challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
+
         cname.clear();
-        for (int i = 0; i < Chal_list.size; i++) {
-            cname.add(Chal_list.Clist.get(i).name);
+        for (int i = 0; i < Challenge.challenges.size(); i++) {
+            cname.add(Challenge.challenges.get(i).name);
         }
 
 

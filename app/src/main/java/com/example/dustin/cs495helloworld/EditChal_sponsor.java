@@ -11,8 +11,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
-
 public class EditChal_sponsor extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     List<String> cname=new ArrayList<String>();
@@ -28,8 +26,9 @@ public class EditChal_sponsor extends AppCompatActivity implements AdapterView.O
 
     private void initAdapter(){
         cname.clear();
-        for (int i=0;i<Chal_list.size;i++){
-            cname.add(Chal_list.Clist.get(i).name);
+        List<Challenge> challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
+        for (int i=0;i<challenges.size();i++){
+            cname.add(challenges.get(i).name);
         }
 
         listView =(ListView) findViewById(R.id.listview_chal);

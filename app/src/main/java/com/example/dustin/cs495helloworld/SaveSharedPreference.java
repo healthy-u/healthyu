@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 public class SaveSharedPreference
 {
     static final long LOGGED_IN_USER_ID = 0L;
+    static final long LOGGED_IN_SPONSOR_ID = 0L;
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);

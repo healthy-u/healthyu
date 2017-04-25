@@ -12,9 +12,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-
-import static com.example.dustin.cs495helloworld.Main_sponsor.Chal_list;
 
 public class DelChal_sponsor extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -32,8 +29,8 @@ public class DelChal_sponsor extends AppCompatActivity implements AdapterView.On
 
     private void initAdapter(){
         cname.clear();
-        for (int i=0;i<Chal_list.size;i++){
-            cname.add(Chal_list.Clist.get(i).name);
+        for (int i=0;i<Challenge.challenges.size();i++){
+            cname.add(Challenge.challenges.get(i).name);
         }
 
         listView =(ListView) findViewById(R.id.listview_chal);
@@ -51,7 +48,7 @@ public class DelChal_sponsor extends AppCompatActivity implements AdapterView.On
                 .setMessage("Delete?")
                 .setPositiveButton("Delete",new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog,int which){
-                    Chal_list.remove(x);
+                    //Chal_list.remove(x);
                     initAdapter();
                 }})
                 .setNegativeButton("Cancel",null)
