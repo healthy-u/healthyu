@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
                     startActivityForResult(nextScreen, 0);
 
-                }/*else if (CRlst.login(username,password)){
+                }else if (CRlst.login(username,password)){
                     Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                     int id=CRlst.getRunner(username).id;
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
-                }*/
+                }/*
                 else {
 
                     User u = Tables.UserTable.findForUsernameAndPassword(username, password);
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
                     }
-                }
+                }*/
 
                  passwordTxt.setText("");
             }
@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 EditText uname=(EditText) findViewById(R.id.usernameTxt);
                 EditText psd=(EditText) findViewById(R.id.passwordTxt);
 
@@ -171,7 +172,10 @@ public class MainActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(v.getContext(),  username+ ": accountCreated", Toast.LENGTH_SHORT).show();
 
-                }
+                }*/
+                Intent nextScreen = new Intent(v.getContext(), regisetr.class);
+                startActivityForResult(nextScreen, 0);
+
                 /*
 
 
