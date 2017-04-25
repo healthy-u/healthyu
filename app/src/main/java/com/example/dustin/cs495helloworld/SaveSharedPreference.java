@@ -13,6 +13,9 @@ public class SaveSharedPreference
     static final long LOGGED_IN_USER_ID = 0L;
     static final long LOGGED_IN_SPONSOR_ID = 0L;
 
+    static final String userIdString = "USER_ID";
+    static final String sponsorIdString = "SPONSOR_ID";
+
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
@@ -20,12 +23,24 @@ public class SaveSharedPreference
     public static void setUserName(Context ctx, Long userId)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(Long.toString(LOGGED_IN_USER_ID), Long.toString(userId));
+        editor.putString(userIdString, Long.toString(userId));
         editor.commit();
     }
 
     public static String getUserName(Context ctx)
     {
-        return getSharedPreferences(ctx).getString(Long.toString(LOGGED_IN_USER_ID), Long.toString(0L));
+        return getSharedPreferences(ctx).getString(userIdString, Long.toString(0L));
+    }
+
+    public static void setSponsorID(Context ctx, Long sponsorId)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(sponsorIdString, Long.toString(sponsorId));
+        editor.commit();
+    }
+
+    public static String getSponsorID(Context ctx)
+    {
+        return getSharedPreferences(ctx).getString(sponsorIdString, Long.toString(0L));
     }
 }

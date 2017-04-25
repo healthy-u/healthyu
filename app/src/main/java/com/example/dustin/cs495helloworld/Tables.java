@@ -149,6 +149,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
         static public User fromJson(JSONArray jsonArray) {
             try {
+                System.out.println(jsonArray.toString());
                 JSONObject json = jsonArray.getJSONObject(0);
                 Long team_id = 0L;
                 if (json.getString(("team_id")) != "null") team_id = Long.parseLong(json.getString(("team_id")));
@@ -330,7 +331,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
     public static class SponsorTable {
         public static final String LOGIN_FILENAME = "sponsor-login";
-        public static final String FILENAME = "sponsor";
+        public static final String FILENAME = "sponsors";
 
 
         public static Sponsor findForUsernameAndPassword(String username, String pass) {
@@ -345,7 +346,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
                     try {
                         String paramString = "?username=" + finalUsername + "&password=" + finalPass;
                         result[0] = fromJson(hitDB(LOGIN_FILENAME, "GET", paramString));
-                        System.out.println(result[0]);
+                        System.out.println("SPONSOR: " + result[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -372,8 +373,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        String paramString = "?user_id=" + id;
-                        result[0] = fromJson(hitDB("users", "GET", paramString));
+                        String paramString = "?sponsor_id=" + id;
+                        result[0] = fromJson(hitDB(FILENAME, "GET", paramString));
                         System.out.println(result[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -399,8 +400,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
                 return new Sponsor(
                         Long.parseLong(json.getString("sponsor_id")),
-                        json.getString("user_username"),
-                        json.getString("user_email"),
+                        json.getString("sponsor_name"),
+                        json.getString("sponsor_email"),
                         Long.parseLong(json.getString(("campus_id")))
                 );
             }

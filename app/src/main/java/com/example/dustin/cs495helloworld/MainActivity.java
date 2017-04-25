@@ -80,7 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(MainActivity.this, INITIAL_PERMS, INITIAL_REQUEST);
 
-        Long currentUserId = Long.parseLong(SaveSharedPreference.getUserName(MainActivity.this));
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        final Long currentUserId = Long.parseLong(SaveSharedPreference.getUserName(MainActivity.this));
+        final Long currentSponsorId = Long.parseLong(SaveSharedPreference.getSponsorID(MainActivity.this));
+
+        System.out.println("currentUsrID: " + currentUserId);
+        System.out.println("currentSponsorID: " + currentSponsorId);
 
         if (currentUserId != null && currentUserId != 0L)
         {
@@ -92,108 +100,119 @@ public class MainActivity extends AppCompatActivity {
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
+        else if (currentSponsorId != null && currentSponsorId != 0L)
+        {
+            SQLiteDatabase db = new Database(this).getReadableDatabase();
+            Sponsor.loggedInSponsor = Tables.SponsorTable.findForID(currentSponsorId);
+            System.out.println("******************");
+            System.out.println("LOGGED IN SPONSOR: " + Sponsor.loggedInSponsor);
+            Intent nextScreen = new Intent(this, Main_sponsor.class);
+            startActivityForResult(nextScreen, 0);
+        }
+        else {
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                SQLiteDatabase db = new Database(v.getContext()).getWritableDatabase();
+                    System.out.println("currentUserID: " + currentUserId);
+                    System.out.println("currentSponsorID: " + currentSponsorId);
 
-                String username = usernameTxt.getText().toString();
-                String password = passwordTxt.getText().toString();
+                    String username = usernameTxt.getText().toString();
+                    String password = passwordTxt.getText().toString();
 
 
-                // sponsor login
+                    // sponsor login
 
-                if (username.equals("sponsor")) {
-                    Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
-                    startActivityForResult(nextScreen, 0);
-
-                }/*else if (CRlst.login(username,password)){
-                    Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
-                    Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
-                    int id=CRlst.getRunner(username).id;
-                    CRlst.uid=id;
-                    nextScreen.putExtra("id",id);
-                    startActivityForResult(nextScreen, 0);
-
-                }else{
-                    Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
-                }*/
-                else {
-
-                    User u = Tables.UserTable.findForUsernameAndPassword(username, password);
-
-                    if (u != null) {
-                        User.loggedInUser = u;
-                        SaveSharedPreference.setUserName(v.getContext(), u.id);
-                        //Run run = new Run(User.loggedInUser.id, new Date()).create(db);
-                        System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
-                        Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
-
-                        Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                    if (username.equals("sponsor")) {
+                        Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
                         startActivityForResult(nextScreen, 0);
 
-                    } else {
-                        Sponsor s = Tables.SponsorTable.findForUsernameAndPassword(username, password);
-                        if (s != null) {
-                            Sponsor.loggedInSponsor = s;
-                            //SaveSharedPreference.setSponsorName(v.getContext(), u.id);
-                            // Run run = new Run(User.loggedInUser.id, new Date()).create(db);
-                            System.out.println("Sponsor.loggedInSponsor.id: " + Sponsor.loggedInSponsor.id);
+                    }/*else if (CRlst.login(username,password)){
+                        Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+                        Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                        int id=CRlst.getRunner(username).id;
+                        CRlst.uid=id;
+                        nextScreen.putExtra("id",id);
+                        startActivityForResult(nextScreen, 0);
+
+                    }else{
+                        Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                    }*/ else {
+
+                        User u = Tables.UserTable.findForUsernameAndPassword(username, password);
+
+                        if (u != null) {
+                            User.loggedInUser = u;
+                            SaveSharedPreference.setUserName(v.getContext(), u.id);
+                            SaveSharedPreference.setSponsorID(v.getContext(), 0L);
+                            System.out.println("User.loggedInUser.id: " + User.loggedInUser.id);
                             Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
 
                             Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
                             startActivityForResult(nextScreen, 0);
-                            }
 
-                        Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Sponsor s = Tables.SponsorTable.findForUsernameAndPassword(username, password);
+                            if (s != null) {
+                                Sponsor.loggedInSponsor = s;
+                                SaveSharedPreference.setSponsorID(v.getContext(), s.id);
+                                SaveSharedPreference.setUserName(v.getContext(), 0L);
+
+                                System.out.println("LOGGED IN USER: " + SaveSharedPreference.getUserName(v.getContext()));
+                                System.out.println("LOGGED IN SPONSOR: " + SaveSharedPreference.getSponsorID(v.getContext()));
+
+                                // Run run = new Run(User.loggedInUser.id, new Date()).create(db);
+                                System.out.println("Sponsor.loggedInSponsor.id: " + Sponsor.loggedInSponsor.id);
+                                Toast.makeText(v.getContext(), usernameTxt.getText().toString() + ": login successful", Toast.LENGTH_SHORT).show();
+
+                                Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);
+                                startActivityForResult(nextScreen, 0);
+                            } else
+                                Toast.makeText(v.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
+                    passwordTxt.setText("");
                 }
 
-                 passwordTxt.setText("");
-            }
+
+            });
+
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EditText uname = (EditText) findViewById(R.id.usernameTxt);
+                    EditText psd = (EditText) findViewById(R.id.passwordTxt);
+
+                    String username = uname.getText().toString();
+                    String password = psd.getText().toString();
+
+                    if (!CRlst.register(username, password)) {
+                        Toast.makeText(v.getContext(), username + ": exist!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(v.getContext(), username + ": accountCreated", Toast.LENGTH_SHORT).show();
+
+                    }
+                    /*
 
 
-        });
+                    User user = new User("First", "Name", username, "email@email.com");
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText uname=(EditText) findViewById(R.id.usernameTxt);
-                EditText psd=(EditText) findViewById(R.id.passwordTxt);
+                    SQLiteDatabase db = new Database(v.getContext()).getWritableDatabase();
 
-                String username = uname.getText().toString();
-                String password = psd.getText().toString();
+                    User.loggedInUser = user.create(db, password);
 
-                if (! CRlst.register(username,password)){
-                    Toast.makeText(v.getContext(), username + ": exist!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(v.getContext(),  username+ ": accountCreated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), User.loggedInUser.username + ": accountCreated", Toast.LENGTH_SHORT).show();
+                    Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                    startActivityForResult(nextScreen, 0);
 
+                    passwordTxt.setText("");*/
                 }
-                /*
 
 
-                User user = new User("First", "Name", username, "email@email.com");
-
-                SQLiteDatabase db = new Database(v.getContext()).getWritableDatabase();
-
-                User.loggedInUser = user.create(db, password);
-
-                Toast.makeText(v.getContext(), User.loggedInUser.username + ": accountCreated", Toast.LENGTH_SHORT).show();
-                Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
-                startActivityForResult(nextScreen, 0);
-
-                passwordTxt.setText("");*/
-            }
-
-
-        });
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+            });
+        }
     }
 
     /**

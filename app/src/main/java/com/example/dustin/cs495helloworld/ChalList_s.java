@@ -24,6 +24,7 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chal_list_s);
         Challenge.challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
+
         cname.clear();
         for (int i=0;i<Challenge.challenges.size();i++){
             cname.add(Challenge.challenges.get(i).name);
