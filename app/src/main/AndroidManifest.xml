@@ -9,7 +9,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="@string/step_detector"
@@ -73,7 +73,8 @@
         <activity android:name=".challenge_info_edit" />
         <activity android:name=".Set_sponsor" />
         <activity android:name=".join_chal_runner" />
-        <activity android:name=".runner_info"></activity>
+        <activity android:name=".runner_info" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>

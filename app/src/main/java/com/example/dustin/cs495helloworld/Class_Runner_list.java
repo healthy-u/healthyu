@@ -79,13 +79,16 @@ public class Class_Runner_list {
 
         return false;
     }
-    public boolean register(String u,String psw){
+    public boolean register(String u,String psw,String fn,String ln,String e){
         for (int i=0;i<size;i++){
             if (u.equals(getname(i))){
                 return false;
             }
         }
         Class_Runner r=new Class_Runner(u,psw);
+        r.firstname=fn;
+        r.lastname=ln;
+        r.email=e;
         add(r);
 
         return true;

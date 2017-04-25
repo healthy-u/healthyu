@@ -35,7 +35,4 @@ public class SettingsActivity extends Activity {
         });
     }
 
-    void btnsave(View v){
-        finish();
-    }
 }

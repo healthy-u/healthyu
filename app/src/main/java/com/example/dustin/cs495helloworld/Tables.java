@@ -86,6 +86,36 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
         public static final String[] columns = {"user_id", "user_firstname", "user_lastname", "user_username", "user_email", "lifetime_points", "team_id"};
 
+        public static User create(User u, final String password) {
+            final Long[] result = new Long[1];
+            result[0] = null;
+            final User passedInUser = u;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?username=" + passedInUser.username + "&password=" + password + "&user_firstname=" + passedInUser.firstname +
+                                "&user_lastname=" + passedInUser.lastname + "&user_email=" + passedInUser.email;
+                        result[0] = (Long.parseLong(hitDB("login", "POST", paramString).getJSONObject(0).getString("id")));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            u.id = result[0];
+            return u;
+        }
 
         public static User findForUsernameAndPassword(String username, String pass) {
 
@@ -144,6 +174,34 @@ public final class Tables extends AsyncTask<String, Void, String> {
             }
 
             System.out.println("USER FIND FOR ID: " + result[0]);
+            return result[0];
+        }
+
+        public static Boolean existsForUsername(String uname) {
+            final Boolean[] result = new Boolean[1];
+            result[0] = true;
+            final String username = uname;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?username=" + username;
+                        result[0] = (Long.parseLong(hitDB("users", "GET", paramString).getJSONObject(0).getString("result")) > 0);
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
             return result[0];
         }
 
@@ -271,6 +329,43 @@ public final class Tables extends AsyncTask<String, Void, String> {
         return result;
     }
 
+    private static JSONArray convertStreamToJsonObject(InputStream is) {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        JSONArray result = null;
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            System.out.println("sb.toString: " + sb.toString());
+            result = new JSONArray(sb.toString());
+        } catch (Exception e) {
+            result = new JSONArray();
+            try {
+                result.put(new JSONObject(sb.toString()));
+            }
+            catch (Exception ex) {
+                e.printStackTrace();
+                result = null;
+            }
+        }
+        return result;
+    }
+
     public static class ChallengeTable {
 
         public static final String FILE_NAME = "event";
@@ -333,6 +428,35 @@ public final class Tables extends AsyncTask<String, Void, String> {
         public static final String LOGIN_FILENAME = "sponsor-login";
         public static final String FILENAME = "sponsors";
 
+        public static Sponsor create(Sponsor s, final String password) {
+            final Long[] result = new Long[1];
+            result[0] = null;
+            final Sponsor passedInSponsor = s;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?sponsor_name=" + passedInSponsor.username + "&sponsor_password=" + password + "&sponsor_email=" + passedInSponsor.email;
+                        result[0] = (Long.parseLong(hitDB(FILENAME, "POST", paramString).getJSONObject(0).getString("new_id")));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            s.id = result[0];
+            return s;
+        }
 
         public static Sponsor findForUsernameAndPassword(String username, String pass) {
 
@@ -417,7 +541,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
         public static final String FILENAME = "sponsor";
 
 
-        public static Sponsor findForUsernameAndPassword(String username, String pass) {
+        /*public static Sponsor findForUsernameAndPassword(String username, String pass) {
 
             final Sponsor[] result = new Sponsor[1];
             result[0] = null;
@@ -491,6 +615,6 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
                 return null;
             }
-        }
+        }*/
     }
 }
