@@ -61,7 +61,7 @@ public class ChallengeActivity extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View v) {
 
-                Intent nextScreen = new Intent(v.getContext(), StatsActivity.class);
+                Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
                 startActivityForResult(nextScreen, 0);
             }
         });

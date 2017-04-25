@@ -84,19 +84,19 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("currentUsrID: " + currentUserId);
         System.out.println("currentSponsorID: " + currentSponsorId);
 
-        /*if (currentUserId != 0L) {
+        if (currentUserId != 0L) {
             User.loggedInUser = Tables.UserTable.findForID(currentUserId);
             System.out.println("******************");
             System.out.println("LOGGED IN : " + User.loggedInUser);
-            //Intent nextScreen = new Intent(this, MapsActivity.class);
-            //startActivityForResult(nextScreen, 0);
+            Intent nextScreen = new Intent(this, MapsActivity.class);
+            startActivityForResult(nextScreen, 0);
         } else if (currentSponsorId != 0L) {
             Sponsor.loggedInSponsor = Tables.SponsorTable.findForID(currentSponsorId);
             System.out.println("******************");
             System.out.println("LOGGED IN SPONSOR: " + Sponsor.loggedInSponsor);
-            //Intent nextScreen = new Intent(this, Main_sponsor.class);
-            //startActivityForResult(nextScreen, 0);
-        } else */ if(true) {
+            Intent nextScreen = new Intent(this, Main_sponsor.class);
+            startActivityForResult(nextScreen, 0);
+        } else {
 
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -60,7 +60,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".StatsActivity" />
         <activity android:name=".ChallengeActivity" />
         <activity android:name=".ViewRuns" />
         <activity android:name=".Main_sponsor" />

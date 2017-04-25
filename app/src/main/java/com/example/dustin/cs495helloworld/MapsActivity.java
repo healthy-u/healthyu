@@ -159,7 +159,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                SharedPreferences mState = getSharedPreferences("state", 0);
+                SharedPreferences mSetate = getSharedPreferences("state", 0);
 
                 String toastText = "Run started";
                 if (onRun) toastText = "Run stopped";
@@ -177,8 +177,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnStatsPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Intent nextScreen = new Intent(v.getContext(), StatsActivity.class);
                 Intent nextScreen = new Intent(v.getContext(), ViewRuns.class);
                 startActivity(nextScreen);
             }
