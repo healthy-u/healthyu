@@ -71,7 +71,7 @@ public class ViewRuns extends AppCompatActivity {
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         if(f3== null){
-            f3 = new team();
+            f3 = new team_adapter();
         }
         transaction.replace(R.id.fragment1, f3);
 

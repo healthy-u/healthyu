@@ -128,7 +128,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 public void run() {
                     try {
                         String paramString = "?username=" + finalUsername + "&password=" + finalPass;
-                        result[0] = fromJson(hitDB("login", "GET", paramString));
+                        result[0] = fromJson(hitDB("login", "GET", paramString).getJSONObject(0));
                         System.out.println(result[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -157,7 +157,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 public void run() {
                     try {
                         String paramString = "?user_id=" + id;
-                        result[0] = fromJson(hitDB("users", "GET", paramString));
+                        result[0] = fromJson(hitDB("users", "GET", paramString).getJSONObject(0));
                         System.out.println(result[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -205,10 +205,9 @@ public final class Tables extends AsyncTask<String, Void, String> {
             return result[0];
         }
 
-        static public User fromJson(JSONArray jsonArray) {
+        static public User fromJson(JSONObject json) {
             try {
-                System.out.println(jsonArray.toString());
-                JSONObject json = jsonArray.getJSONObject(0);
+                System.out.println(json.toString());
                 Long team_id = 0L;
                 if (json.getString(("team_id")) != "null") team_id = Long.parseLong(json.getString(("team_id")));
                 return new User(
@@ -225,6 +224,20 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
                 return null;
             }
+        }
+
+        static public List<User> allUsersFromJson(JSONArray jsonArray) {
+            List<User> users = new ArrayList<User>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    users.add(fromJson(jsonArray.getJSONObject(i)));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return users;
         }
     }
 
@@ -246,7 +259,36 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 + "start_time DATETIME NOT NULL,"
                 + "end_time DATETIME NOT NULL)";
 
+        public static Run create(Run r) {
+            final Long[] result = new Long[1];
+            result[0] = null;
+            final Run passedInRun = r;
 
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + passedInRun.user_id + "&mile_count=" + passedInRun.miles + "&trail_coords=" + passedInRun.trailCoords
+                                + "&start_time=" + passedInRun.startTime + "&end_time=" + passedInRun.endTime;
+                        result[0] = (Long.parseLong(hitDB(FILE_NAME, "POST", paramString).getJSONObject(0).getString("new_id")));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            r.id = result[0];
+            return r;
+        }
 
         public static List<Run> findForUser(User u) {
             final List<Run> runs = new ArrayList<Run>();
@@ -373,6 +415,63 @@ public final class Tables extends AsyncTask<String, Void, String> {
         public static final String FILE_NAME_USER = "user/event";
 
         public static final String TABLE_NAME = "event";
+
+        public static Challenge create(Challenge c) {
+            final Long[] result = new Long[1];
+            result[0] = null;
+            final Challenge passedInChallenge = c;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize_id + "&start_date=" + passedInChallenge.start_date
+                                + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name;
+                        result[0] = (Long.parseLong(hitDB(FILE_NAME, "POST", paramString).getJSONObject(0).getString("new_id")));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            c.id = result[0];
+            return c;
+        }
+
+        public static Challenge update(Challenge c) {
+            final Challenge passedInChallenge = c;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize_id + "&start_date=" + passedInChallenge.start_date
+                                + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name + "&event_id=" + passedInChallenge.id;
+                        hitDB(FILE_NAME, "POST", paramString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            return c;
+        }
 
         public static List<Challenge> findForUser(User u) {
             final List<Challenge> challenges = new ArrayList<Challenge>();
@@ -537,52 +636,17 @@ public final class Tables extends AsyncTask<String, Void, String> {
     }
 
     public static class TeamTable {
-        public static final String LOGIN_FILENAME = "sponsor-login";
-        public static final String FILENAME = "sponsor";
+        public static final String FILENAME = "teams";
 
-
-        /*public static Sponsor findForUsernameAndPassword(String username, String pass) {
-
-            final Sponsor[] result = new Sponsor[1];
-            result[0] = null;
-            final String finalUsername = username;
-            final String finalPass = pass;
-
-            Thread thread = new Thread() {
-                public void run() {
-                    try {
-                        String paramString = "?username=" + finalUsername + "&password=" + finalPass;
-                        result[0] = fromJson(hitDB(LOGIN_FILENAME, "GET", paramString));
-                        System.out.println(result[0]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            thread.start();
-
-            try {
-                thread.join();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            System.out.println(result[0]);
-            return result[0];
-        }
-
-        public static Sponsor findForID(Long user_id) {
-            final Sponsor[] result = new Sponsor[1];
-            result[0] = null;
+        public static List<Team> findAllTeamsForUserCampus(Long user_id) {
+            final List<Team> result = new ArrayList<Team>();
             final String id = String.valueOf(user_id);
 
             Thread thread = new Thread() {
                 public void run() {
                     try {
                         String paramString = "?user_id=" + id;
-                        result[0] = fromJson(hitDB("users", "GET", paramString));
-                        System.out.println(result[0]);
+                        result.addAll(fromJson(hitDB(FILENAME, "GET", paramString)));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -597,24 +661,41 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-            System.out.println("SPONSOR FIND FOR ID: " + result[0]);
-            return result[0];
+            return result;
         }
 
-        static public Sponsor fromJson(JSONArray jsonArray) {
-            try {
-                JSONObject json = jsonArray.getJSONObject(0);
+        public static Team findForUser(Long user_id) {
+            List<Team> allTeams = findAllTeamsForUserCampus(user_id);
+            for (int i = 0; i < allTeams.size(); i++) {
+                Boolean hasUser = false;
+                List<User> users = allTeams.get(i).members;
+                for (int j = 0; j < users.size(); j++) {
+                    if (users.get(j).id == user_id) return allTeams.get(i);
+                }
+            }
 
-                return new Sponsor(
-                        Long.parseLong(json.getString("sponsor_id")),
-                        json.getString("user_username"),
-                        json.getString("user_email"),
-                        Long.parseLong(json.getString(("campus_id")))
-                );
+            return null;
+        }
+
+        static public List<Team> fromJson(JSONArray jsonArray) {
+
+            List<Team> teams = new ArrayList<Team>();
+
+            try {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = jsonArray.getJSONObject(i).getJSONObject("team");
+
+                    teams.add(new Team(
+                            Long.parseLong(json.getString("id")),
+                            json.getString("name"),
+                            UserTable.allUsersFromJson(json.getJSONArray("users"))
+                    ));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
             }
-        }*/
+
+            return teams;
+        }
     }
 }

@@ -20,7 +20,7 @@ import static com.example.dustin.cs495helloworld.MainActivity.CRlst;
  * Created by lulu on 2017-04-06.
  */
 
-public class team extends Fragment implements AdapterView.OnItemClickListener {
+public class team_adapter extends Fragment implements AdapterView.OnItemClickListener {
 
 
     List<String> tname=new ArrayList<String>();
