@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         {
             SQLiteDatabase db = new Database(this).getReadableDatabase();
             //User.loggedInUser = Tables.UserTable.findForID(db, currentUserId);
-            //  use
+            //use
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
         }
@@ -145,18 +145,8 @@ public class MainActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText uname=(EditText) findViewById(R.id.usernameTxt);
-                EditText psd=(EditText) findViewById(R.id.passwordTxt);
-
-                String username = uname.getText().toString();
-                String password = psd.getText().toString();
-
-                if (! CRlst.register(username,password)){
-                    Toast.makeText(v.getContext(), username + ": exist!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(v.getContext(),  username+ ": accountCreated", Toast.LENGTH_SHORT).show();
-
-                }
+                Intent nextScreen = new Intent(v.getContext(), regisetr.class);
+                startActivity(nextScreen);
                 /*
 
 
