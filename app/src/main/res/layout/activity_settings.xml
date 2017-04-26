@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true"
         android:background="@color/btn_blue"
         android:gravity="center"
-        android:text="Setting"
+        android:text="Settings"
         android:shadowColor="@color/black"
         android:shadowRadius="10"
         android:shadowDx="5"
