@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.dustin.cs495helloworld.DelChal_sponsor">
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/background_blue">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background_blue"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
         <LinearLayout
             android:id="@+id/l1"
             android:layout_alignParentTop="true"
@@ -18,7 +20,7 @@
 
             <TextView
                 android:id="@+id/t1"
-                android:text="Challengs List"
+                android:text="Challenges List"
                 android:textSize="30dp"
                 android:gravity="center"
                 android:shadowColor="@color/black"

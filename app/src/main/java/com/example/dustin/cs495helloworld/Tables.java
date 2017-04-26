@@ -66,6 +66,43 @@ public final class Tables extends AsyncTask<String, Void, String> {
         return result[0];
     }
 
+    public static JSONArray convertStreamToJson(InputStream is) {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        JSONArray result = null;
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            System.out.println("sb.toString: " + sb.toString());
+            result = new JSONArray(sb.toString());
+        } catch (Exception e) {
+            result = new JSONArray();
+            try {
+                result.put(new JSONObject(sb.toString()));
+            }
+            catch (Exception ex) {
+                e.printStackTrace();
+                result = null;
+            }
+        }
+        return result;
+    }
+
     private Tables() {}
 
     public static class UserTable {
@@ -340,74 +377,6 @@ public final class Tables extends AsyncTask<String, Void, String> {
         }
     }
 
-    private static JSONArray convertStreamToJson(InputStream is) {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        JSONArray result = null;
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            System.out.println("sb.toString: " + sb.toString());
-            result = new JSONArray(sb.toString());
-        } catch (Exception e) {
-            result = null;
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private static JSONArray convertStreamToJsonObject(InputStream is) {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        JSONArray result = null;
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        try {
-            System.out.println("sb.toString: " + sb.toString());
-            result = new JSONArray(sb.toString());
-        } catch (Exception e) {
-            result = new JSONArray();
-            try {
-                result.put(new JSONObject(sb.toString()));
-            }
-            catch (Exception ex) {
-                e.printStackTrace();
-                result = null;
-            }
-        }
-        return result;
-    }
-
     public static class ChallengeTable {
 
         public static final String FILE_NAME = "event";
@@ -421,12 +390,15 @@ public final class Tables extends AsyncTask<String, Void, String> {
             result[0] = null;
             final Challenge passedInChallenge = c;
 
+            final Prize p = PrizeTable.create(c.prize);
+            passedInChallenge.prize = p;
+
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize_id + "&start_date=" + passedInChallenge.start_date
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" + passedInChallenge.start_date
                                 + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name;
-                        result[0] = (Long.parseLong(hitDB(FILE_NAME, "POST", paramString).getJSONObject(0).getString("new_id")));
+                        result[0] = (Long.parseLong(hitDB(FILE_NAME, "POST", paramString).getJSONObject(0).getString("id")));
                         System.out.println(result[0]);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -453,9 +425,9 @@ public final class Tables extends AsyncTask<String, Void, String> {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize_id + "&start_date=" + passedInChallenge.start_date
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" + passedInChallenge.start_date
                                 + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name + "&event_id=" + passedInChallenge.id;
-                        hitDB(FILE_NAME, "POST", paramString);
+                        hitDB(FILE_NAME, "PUT", paramString);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -501,6 +473,57 @@ public final class Tables extends AsyncTask<String, Void, String> {
             return challenges;
         }
 
+        public static Boolean delete(Challenge c) {
+            final Challenge chal = c;
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?event_id=" + chal.id;
+                        hitDB(FILE_NAME, "DELETE", paramString);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+
+        public static List<Challenge> findForSponsor(Sponsor s) {
+            final List<Challenge> challenges = new ArrayList<Challenge>();
+            final String id = String.valueOf(s.id);
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?sponsor_id=" + id;
+                        challenges.addAll(fromJson(hitDB(FILE_NAME, "GET", paramString)));
+                        System.out.println(challenges.get(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("CHALLENGES: " + challenges);
+            return challenges;
+        }
+
         public static List<Challenge> fromJson(JSONArray jsons) {
             List<Challenge> challenges = new ArrayList<Challenge>();
             try {
@@ -509,10 +532,17 @@ public final class Tables extends AsyncTask<String, Void, String> {
                     challenges.add(new Challenge(
                             Long.parseLong(json.getString("event_id")),
                             Long.parseLong(json.getString("sponsor_id")),
-                            Long.parseLong(json.getString("prize_id")),
+                            new Prize(
+                                    Long.parseLong(json.getString("prize_id")),
+                                    Long.parseLong(json.getString("winner_id")),
+                                    json.getString("prize_link"),
+                                    Integer.parseInt(json.getString("points_awarded")),
+                                    (Long.parseLong(json.getString("winner_id")) > 0)
+                            ),
                             Database.dateFormat.parse(json.getString("start_date")),
                             Database.dateFormat.parse(json.getString("end_date")),
-                            json.getString("event_name")
+                            json.getString("event_name"),
+                            json.getString("event_type")
                     ));
                 }
             } catch (Exception e) {
@@ -696,6 +726,70 @@ public final class Tables extends AsyncTask<String, Void, String> {
             }
 
             return teams;
+        }
+    }
+
+    public static class PrizeTable {
+        public static final String FILENAME = "prize";
+
+        public static Prize create(Prize p) {
+            final Long[] result = new Long[1];
+            result[0] = null;
+            final Prize passedInPrize = p;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?prize_link=" + passedInPrize.prize_link + "&point_value=" + passedInPrize.points_awarded;
+                        result[0] = (Long.parseLong(hitDB(FILENAME, "POST", paramString).getJSONObject(0).getString("id")));
+                        System.out.println(result[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            p.id = result[0];
+            return p;
+        }
+
+        static public List<Prize> fromJsonArray(JSONArray jsonArray) {
+
+            List<Prize> prizes = new ArrayList<>();
+
+            try {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject json = jsonArray.getJSONObject(i).getJSONObject("team");
+
+                    prizes.add(fromJson(json));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return prizes;
+        }
+
+        static public Prize fromJson(JSONObject json) {
+            try {
+                return new Prize(Long.parseLong(json.getString("prize_id")),
+                        Long.parseLong(json.getString("winner_id")),
+                        json.getString("prize_link"),
+                        Integer.parseInt(json.getString("point_value")),
+                        (Long.parseLong(json.getString("winner_id")) > 0));
+            }
+            catch (Exception e) {
+                return null;
+            }
         }
     }
 }

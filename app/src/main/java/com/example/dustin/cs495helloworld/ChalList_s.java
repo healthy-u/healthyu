@@ -23,15 +23,16 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chal_list_s);
-        Challenge.challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
+        Challenge.challenges = Tables.ChallengeTable.findForSponsor(Sponsor.loggedInSponsor);
 
         cname.clear();
         for (int i=0;i<Challenge.challenges.size();i++){
             cname.add(Challenge.challenges.get(i).name);
         }
 
+        System.out.println(cname);
 
-        listView =(ListView) findViewById(R.id.listview_chal);
+        listView =(ListView) findViewById(R.id.s_challenge_listview);
         listView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 cname));

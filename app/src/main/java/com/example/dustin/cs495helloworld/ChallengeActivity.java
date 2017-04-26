@@ -44,10 +44,6 @@ public class ChallengeActivity extends AppCompatActivity implements AdapterView.
         final Button btnRunPage = (Button) findViewById(R.id.btnRunPage);
 
 
-
-
-
-
         btnRunPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -14,6 +15,17 @@ public class challenge_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge_info);
+
+        Button backBtn = (Button) findViewById(R.id.btn_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btnBack(v);
+            }
+        });
+
         Intent n=getIntent();
         EditText Tname,Tinfo,Ttag,Tdate;
         RadioButton rbp,rbt;
@@ -22,11 +34,11 @@ public class challenge_info extends AppCompatActivity {
 
         Tname=(EditText) findViewById(R.id.edit_name);
         Tname.setText(chal.name);
-        Tinfo=(EditText) findViewById(R.id.edit_info);
+        Tinfo=(EditText) findViewById(R.id.edit_points_awarded);
         Tinfo.setText(chal.id.toString());
         Ttag=(EditText) findViewById(R.id.edit_target);
-        Ttag.setText(String.valueOf(chal.prize_id));
-        Tdate=(EditText) findViewById(R.id.edit_date);
+        Ttag.setText(String.valueOf(chal.prize.id));
+        Tdate=(EditText) findViewById(R.id.edit_end_date);
         Tdate.setText(chal.start_date + "-" + chal.end_date);
         rbp=(RadioButton)findViewById(R.id.rb_personal);
         rbt=(RadioButton)findViewById(R.id.rb_team);

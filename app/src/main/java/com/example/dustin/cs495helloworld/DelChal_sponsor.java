@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class DelChal_sponsor extends AppCompatActivity implements AdapterView.On
                 .setMessage("Delete?")
                 .setPositiveButton("Delete",new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog,int which){
-                    //Chal_list.remove(x);
+                    Tables.ChallengeTable.delete(Challenge.challenges.get(x));
                     initAdapter();
                 }})
                 .setNegativeButton("Cancel",null)

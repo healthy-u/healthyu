@@ -41,7 +41,7 @@
 
 
             <ListView
-                android:id="@+id/listview_chal"
+                android:id="@+id/s_challenge_listview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -22,11 +23,22 @@ public class EditChal_sponsor extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_edit_chal_sponsor);
         this.initAdapter();
         listView.setOnItemClickListener(this);
+
+        Button backBtn = (Button) findViewById(R.id.btn_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btnback(v);
+            }
+        });
     }
+
 
     private void initAdapter(){
         cname.clear();
-        List<Challenge> challenges = Tables.ChallengeTable.findForUser(User.loggedInUser);
+        List<Challenge> challenges = Tables.ChallengeTable.findForSponsor(Sponsor.loggedInSponsor);
         for (int i=0;i<challenges.size();i++){
             cname.add(challenges.get(i).name);
         }

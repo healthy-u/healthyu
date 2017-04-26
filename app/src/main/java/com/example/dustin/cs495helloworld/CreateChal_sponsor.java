@@ -3,8 +3,12 @@ package com.example.dustin.cs495helloworld;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreateChal_sponsor extends AppCompatActivity {
 
@@ -13,6 +17,16 @@ public class CreateChal_sponsor extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_chal_sponsor);
+
+        Button createChalBtn = (Button) findViewById(R.id.createChalBtn);
+
+        createChalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btnCreated(v);
+            }
+        });
 
     }
 
@@ -25,20 +39,33 @@ public class CreateChal_sponsor extends AppCompatActivity {
 
     void  btnCreated (View v){
 
-        String name="",target="",info="",date="";
-        RadioButton personal;
-        EditText editname =(EditText)findViewById(R.id.edit_name);
-        EditText editinfo =(EditText)findViewById(R.id.edit_info);
-        EditText edittarget=(EditText)findViewById(R.id.edit_target);
-        EditText editdate =(EditText)findViewById(R.id.edit_date);
+        String name="",prizelink="",pointsawarded="",startdatestring="",enddatestring="";
+        RadioButton personal, team;
+        EditText editname = (EditText)findViewById(R.id.edit_name);
+        EditText editprizelink = (EditText)findViewById(R.id.edit_prize_link);
+        EditText editpointsawarded =(EditText)findViewById(R.id.edit_points_awarded);
+        EditText editstartdate =(EditText)findViewById(R.id.edit_start_date);
+        EditText editenddate =(EditText)findViewById(R.id.edit_end_date);
 
         name=editname.getText().toString();
-        info=editinfo.getText().toString();
-        target=edittarget.getText().toString();
-        date=editdate.getText().toString();
+        prizelink=editprizelink.getText().toString();
+        pointsawarded=editpointsawarded.getText().toString();
+        startdatestring=editstartdate.getText().toString();
+        enddatestring=editenddate.getText().toString();
 
-        //Challenge Chal=new Challenge(name,info,Integer.parseInt(target),date,type);
-        //Chal_list.add(Chal);
+        Date startDate = null;
+        Date endDate = null;
+
+        SimpleDateFormat sdfr = new SimpleDateFormat("MM-dd-yyyy");
+        try{
+            startDate = sdfr.parse(startdatestring);
+            endDate = sdfr.parse(enddatestring);
+        }catch (Exception ex ){
+            System.out.println(ex);
+        }
+
+
+        Challenge newChallenge = Tables.ChallengeTable.create(new Challenge(Sponsor.loggedInSponsor.id, new Prize(prizelink, Integer.parseInt(pointsawarded)), startDate, endDate, name, Challenge.CHALLENGE_TYPE_PERSONAL));
 
         finish();
     }
