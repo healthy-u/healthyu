@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import static com.example.dustin.cs495helloworld.MainActivity.CRlst;
 
 public class Register extends AppCompatActivity {
+
+
+    Boolean isSponsor = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,24 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         final Button btnRegister = (Button) findViewById(R.id.button5);
+        final Button btnIsRunner = (Button) findViewById(R.id.rb_runner);
+        final Button btnIsSponsor = (Button) findViewById(R.id.rb_sponsor);
+
+
+        btnIsRunner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isSponsor = false;
+            }
+        });
+
+        btnIsSponsor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isSponsor = true;
+            }
+        });
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +51,7 @@ public class Register extends AppCompatActivity {
                     EditText fn = (EditText) findViewById(R.id.efn);
                     EditText ln = (EditText) findViewById(R.id.eln);
                     EditText em = (EditText) findViewById(R.id.eemail);
+                    RadioButton sponsorBtn = (RadioButton) findViewById(R.id.rb_sponsor);
 
 
                     String suname = uname.getText().toString();
@@ -37,7 +60,9 @@ public class Register extends AppCompatActivity {
                     String sfn = fn.getText().toString();
                     String sln = ln.getText().toString();
                     String sem = em.getText().toString();
-                    Boolean isSponsor = false;
+
+                    System.out.println("**********************isSponsor? " + isSponsor);
+
                     if (suname.equals("")) {
                         Toast.makeText(v.getContext(), "Username is empty!", Toast.LENGTH_SHORT).show();
                     } else if (!spwd.equals(spwd2)) {
@@ -45,7 +70,7 @@ public class Register extends AppCompatActivity {
                     } else if (!CRlst.register(suname, spwd, sfn, sln, sem)) {
                         Toast.makeText(v.getContext(), suname + ": exist!", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (true/*isSponsor*/) {
+                        if (isSponsor) {
                             Sponsor newSponsor = Tables.SponsorTable.create(new Sponsor(suname, sem), spwd);
                             Sponsor.loggedInSponsor = newSponsor;
                             Intent nextScreen = new Intent(v.getContext(), Main_sponsor.class);

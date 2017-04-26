@@ -19,6 +19,8 @@ public class CreateChal_sponsor extends AppCompatActivity {
         setContentView(R.layout.activity_create_chal_sponsor);
 
         Button createChalBtn = (Button) findViewById(R.id.createChalBtn);
+        RadioButton personalTypeBtn = (RadioButton) findViewById(R.id.rb_personal);
+        RadioButton teamTypeByn = (RadioButton) findViewById(R.id.rb_team);
 
         createChalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +29,23 @@ public class CreateChal_sponsor extends AppCompatActivity {
                 btnCreated(v);
             }
         });
+
+        personalTypeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                rdp(v);
+            }
+        });
+
+        teamTypeByn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                rdt(v);
+            }
+        });
+
 
     }
 

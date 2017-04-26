@@ -71,6 +71,7 @@
             android:id="@+id/epwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:ems="10" />
         <TextView
             android:id="@+id/pwd2"
@@ -83,6 +84,7 @@
             android:id="@+id/epwd2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:ems="10" />
 
         <TextView
@@ -124,6 +126,33 @@
             android:inputType="textEmailAddress" />
 
              />
+                    <RadioGroup
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginTop="10pt"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/rb_runner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Runner"
+                            android:checked="true"
+                            android:onClick="rdp"
+                            android:textSize="20dp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_sponsor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sponsor"
+                            android:onClick="rdt"
+                            android:textSize="20dp"
+                            android:textColor="@color/black" />
+
+                    </RadioGroup>
+
                 </LinearLayout>
 
             </ScrollView>

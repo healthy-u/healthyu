@@ -26,7 +26,7 @@ public class team_adapter extends Fragment implements AdapterView.OnItemClickLis
     List<String> tname=new ArrayList<String>();
     private ListView listView ;
     private ArrayAdapter myAdapter;
-    private List<Team> teams;
+    private List<Team> teams = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frends, container, false);
@@ -38,7 +38,7 @@ public class team_adapter extends Fragment implements AdapterView.OnItemClickLis
     private void initAdapter(){
 
         if (User.loggedInUser.team_id == 0L) {
-            Tables.TeamTable.findForUser(User.loggedInUser.id);
+            teams.add(Tables.TeamTable.findForUser(User.loggedInUser.id));
         }
         else teams = Tables.TeamTable.findAllTeamsForUserCampus(User.loggedInUser.id);
 
