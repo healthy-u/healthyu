@@ -33,6 +33,7 @@
                 android:textColor="@color/black"
                 android:background="@color/btn_blue"
                 android:onClick="buttonOnClick1"
+                android:gravity="center"
                 android:text="PERSONAL" />
         </LinearLayout>
 
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/btn_blue"
                 android:onClick="buttonOnClick2"
+                android:gravity="center"
                 android:text="FRIENDS" />
         </LinearLayout>
 
@@ -70,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/btn_blue"
                 android:onClick="buttonOnClick3"
+                android:gravity="center"
                 android:text="TEAM" />
         </LinearLayout>
 
@@ -88,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/btn_blue"
                 android:onClick="buttonOnClick4"
+                android:gravity="center"
                 android:text="CAMPUS" />
 
 
