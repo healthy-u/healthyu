@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +72,13 @@ public class team_adapter extends Fragment implements AdapterView.OnItemClickLis
     public void onItemClick(AdapterView<?> arg0, View vv, int p, long id) {
 
         if (User.loggedInUser.team_id != 0L) {
-            Toast.makeText(getActivity(), "You're already on a team!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "You're already on a team!", Toast.LENGTH_SHORT).show();
+
+            int i = new BigDecimal(teams.get(0).members.get(p).id).intValueExact();
+            Intent n=new Intent(getActivity(),runner_info.class);
+            n.putExtra("id",i);
+            startActivity(n);
+
         }
         else{
             User.loggedInUser.team_id = teams.get(p).id;

@@ -1,10 +1,13 @@
 package com.example.dustin.cs495helloworld;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.dustin.cs495helloworld.MainActivity.CRlst;
 
@@ -16,7 +19,16 @@ public class runner_info extends AppCompatActivity {
         Intent n=getIntent();
         int i=n.getIntExtra("id",0);
         setContentView(R.layout.activity_runner_info);
-        String  rr=CRlst.getname(i);
+        User u = Tables.UserTable.findForID(new Long(i));
+
+        Button backBtn = (Button) findViewById(R.id.button5);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         TextView uanme =(TextView) findViewById(R.id.textView3);
         TextView tRank =(TextView) findViewById(R.id.textView14);
@@ -32,7 +44,7 @@ public class runner_info extends AppCompatActivity {
 
 
 
-        uanme.setText(rr);
+        uanme.setText(u.fullname());
         tRank.setText("null");
         cRank.setText("null");
         LR.setText("null");

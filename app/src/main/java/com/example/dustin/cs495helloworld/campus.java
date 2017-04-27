@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,11 @@ public class campus extends Fragment implements AdapterView.OnItemClickListener 
     }
     public void onItemClick(AdapterView<?> arg0, View vv, int p, long id) {
 
-        String uname= tname.get(p);
-        int i=CRlst.getRunner(uname).id;
-        Intent n=new Intent(getActivity(),runner_info.class);
-        n.putExtra("id",i);
-        startActivity(n);
+        //String uname= tname.get(p);
+        //int i=CRlst.getRunner(uname).id;
+        //Intent n=new Intent(getActivity(),runner_info.class);
+        //n.putExtra("id",i);
+        //startActivity(n);
 
     }
 }
