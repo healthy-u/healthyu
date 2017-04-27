@@ -42,18 +42,31 @@ public class runner_info extends AppCompatActivity {
         TextView l4 =(TextView) findViewById(R.id.textView22);
         TextView l5 =(TextView) findViewById(R.id.textView23);
 
+        String[] runs = {"------------------------------------", "------------------------------------", "------------------------------------",
+                "------------------------------------", "------------------------------------"};
+
+        for (int j = 0; j < Math.min(User.loggedInUser.runs.size(), 5); j++) {
+            Run r = u.runs.get(j);
+            try{
+                runs[j] = Tables.dateFormat.format(r.startTime) + "- " + r.miles + " miles";
+            }
+            catch (Exception e) {
+                //do nothing
+            }
+        }
+
 
 
         uanme.setText(u.fullname());
-        tRank.setText("null");
-        cRank.setText("null");
-        LR.setText("null");
-        Most.setText("null");
-        l1.setText("Null");
-        l2.setText("Null");
-        l3.setText("Null");
-        l4.setText("Null");
-        l5.setText("Null");
+        tRank.setText("3");
+        cRank.setText("5");
+        LR.setText(u.longestRun().miles.toString());
+        Most.setText(u.mostStepsPerDay().toString());
+        l1.setText(runs[0]);
+        l2.setText(runs[1]);
+        l3.setText(runs[2]);
+        l4.setText(runs[3]);
+        l5.setText(runs[4]);
 
 
 

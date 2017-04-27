@@ -41,7 +41,7 @@ public class Fpersonal  extends Fragment {
             }
         }
 
-        uanme.setText(CRlst.getname(CRlst.uid));
+        uanme.setText(User.loggedInUser.fullname());
         tRank.setText("null");
         cRank.setText("null");
         LR.setText(User.loggedInUser.longestRun().miles.toString());
