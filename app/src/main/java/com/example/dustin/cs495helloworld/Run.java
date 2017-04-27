@@ -4,33 +4,36 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by dustin on 4/1/17.
  */
 
-public class Run {
+public class Run implements Comparable<Run> {
     long id = 0L;
     long user_id;
     BigDecimal miles = BigDecimal.ZERO;
     String trailCoords = null;
     Date startTime;
     Date endTime = null;
-    int steps;
 
-    public Run(long id, long user_id, BigDecimal miles, String trailCoords, Date startTime, Date endTime, int steps) {
+    public Run(long id, long user_id, BigDecimal miles, String trailCoords, Date startTime, Date endTime) {
         this.id = id;
         this.user_id = user_id;
         this.miles = miles;
         this.trailCoords = trailCoords;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.steps = steps;
+    }
+
+    public Run(long User_ID, BigDecimal Miles, Date startTime, Date endTime) {
+        this(0L, User_ID, BigDecimal.ZERO, null, startTime, endTime);
     }
 
     public Run(long user_id, Date startTime) {
-        this(0L, user_id, BigDecimal.ZERO, null, startTime, null, 0);
+        this(0L, user_id, BigDecimal.ZERO, null, startTime, null);
     }
 
     public Run create(SQLiteDatabase db) {
@@ -44,7 +47,6 @@ public class Run {
         values.put("trail_coords", this.trailCoords);
         values.put("start_time", Database.dateToSqlString(startTime));
         values.put("end_time", Database.dateToSqlString(dbEndTime));
-        values.put("steps", this.steps);
 
         long newId = db.insert("run", null, values);
         this.id = newId;
@@ -53,6 +55,10 @@ public class Run {
 
     @Override
     public String toString() {
-        return this.startTime.toString() + "-" + this.endTime.toString() + ": " + miles + "mi./"+ steps +" steps";
+        return this.startTime.toString() + "-" + this.endTime.toString() + ": " + miles + "mi.";
+    }
+
+    public int compareTo(Run compared) {
+        return compared.miles.compareTo(this.miles);
     }
 }
