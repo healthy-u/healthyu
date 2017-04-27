@@ -85,7 +85,7 @@
             android:background="@color/tab_blue"
             android:elevation="0dp"
             android:text="@string/challenges"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
