@@ -17,6 +17,30 @@ public class ViewRuns extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_runs);
+
+        overridePendingTransition(R.anim.transistion, R.anim.transistion);
+
+        final Button btnRunPage = (Button) findViewById(R.id.btnRunPage);
+        final Button btnChallengePage = (Button) findViewById(R.id.btnChallengePage);
+
+        btnRunPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextScreen = new Intent(v.getContext(), MapsActivity.class);
+                startActivityForResult(nextScreen, 0);
+            }
+        });
+
+        btnChallengePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent nextScreen = new Intent(v.getContext(), ChallengeActivity.class);
+                startActivityForResult(nextScreen, 0);
+            }
+        });
+
         init();
 
         b1.setOnClickListener(new View.OnClickListener() {
