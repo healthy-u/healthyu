@@ -776,6 +776,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
         static public List<Team> fromJson(JSONArray jsonArray) {
 
             List<Team> teams = new ArrayList<Team>();
+            List<String> team_ids = new ArrayList<>();
 
             try {
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -791,14 +792,17 @@ public final class Tables extends AsyncTask<String, Void, String> {
                     String team_id_string = json.getString("id");
                     Long team_id = 0L;
                     if (team_id_string != "null") {
-                        System.out.println("team json: " + json + "\n");
-                        team_id = Long.parseLong(team_id_string);
+                            if (!team_ids.contains(team_id_string)) {
+                                team_ids.add(team_id_string);
+                                System.out.println("team json: " + json + "\n");
+                                team_id = Long.parseLong(team_id_string);
 
-                        teams.add(new Team(
-                                team_id,
-                                json.getString("name"),
-                                users
-                        ));
+                                teams.add(new Team(
+                                    team_id,
+                                    json.getString("name"),
+                                    users
+                                ));
+                        }
                     }
                 }
             } catch (Exception e) {
