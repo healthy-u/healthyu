@@ -18,7 +18,10 @@ public class User {
     BigDecimal lifetime_points;
     long team_id = 0L;
 
-    String fullname = firstname + " " + lastname;
+    public String fullname()
+    {
+        return firstname + " " + lastname;
+    }
 
     public User(Long ID, String first_name, String last_name, String user_name, String emailAddress, BigDecimal lifetimePoints, Long teamId) {
         id = ID;

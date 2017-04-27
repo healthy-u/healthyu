@@ -154,6 +154,34 @@ public final class Tables extends AsyncTask<String, Void, String> {
             return u;
         }
 
+        public static Boolean update(User u) {
+            final Boolean[] result = new Boolean[1];
+            result[0] = null;
+            final User passedInUser = u;
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + passedInUser.id + "&lifetime_points=" + passedInUser.lifetime_points + "&team_id=" + passedInUser.team_id;
+                        result[0] = ((Long.parseLong(hitDB("users", "PATCH", paramString).getJSONObject(0).getString("success"))) > 0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(result[0]);
+            return result[0];
+        }
+
         public static User findForUsernameAndPassword(String username, String pass) {
 
             final User[] result = new User[1];
@@ -247,6 +275,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 System.out.println(json.toString());
                 Long team_id = 0L;
                 if (json.getString(("team_id")) != "null") team_id = Long.parseLong(json.getString(("team_id")));
+                System.out.println("first name: " + json.getString("user_firstname"));
+
                 return new User(
                         Long.parseLong(json.getString("user_id")),
                         json.getString("user_firstname"),
@@ -267,7 +297,11 @@ public final class Tables extends AsyncTask<String, Void, String> {
             List<User> users = new ArrayList<User>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
-                    users.add(fromJson(jsonArray.getJSONObject(i)));
+                    User u = fromJson(jsonArray.getJSONObject(i));
+                    System.out.println(u.fullname());
+                    System.out.println(u.id);
+                    users.add(u);
+                    System.out.println("users: " + users.size());
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -661,6 +695,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
     public static class TeamTable {
         public static final String FILENAME = "teams";
+        public static final String ALLTEAMSFILENAME = "allteams";
 
         public static List<Team> findAllTeamsForUserCampus(Long user_id) {
             final List<Team> result = new ArrayList<Team>();
@@ -688,8 +723,37 @@ public final class Tables extends AsyncTask<String, Void, String> {
             return result;
         }
 
+        public static List<Team> allTeamsForUserCampus(Long user_id) {
+            final List<Team> result = new ArrayList<Team>();
+            final String id = String.valueOf(user_id);
+
+            Thread thread = new Thread() {
+                public void run() {
+                    try {
+                        String paramString = "?user_id=" + id;
+                        result.addAll(fromJson(hitDB(ALLTEAMSFILENAME, "GET", paramString)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+            thread.start();
+
+            try {
+                thread.join();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
         public static Team findForUser(Long user_id) {
             List<Team> allTeams = findAllTeamsForUserCampus(user_id);
+
+            System.out.println("allTeams: " + allTeams);
+
             for (int i = 0; i < allTeams.size(); i++) {
                 Boolean hasUser = false;
                 List<User> users = allTeams.get(i).members;
@@ -709,16 +773,30 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject json = jsonArray.getJSONObject(i).getJSONObject("team");
 
-                    teams.add(new Team(
-                            Long.parseLong(json.getString("id")),
-                            json.getString("name"),
-                            UserTable.allUsersFromJson(json.getJSONArray("users"))
-                    ));
+                    String userString = json.getString("users");
+                    List<User> users = new ArrayList<>();
+
+                    if (!userString.equals("[]")) {
+                        users = UserTable.allUsersFromJson(json.getJSONArray("users"));
+                    }
+
+                    String team_id_string = json.getString("id");
+                    Long team_id = 0L;
+                    if (team_id_string != "null") {
+                        System.out.println("team json: " + json + "\n");
+                        System.out.println("users: " + users.get(0).fullname() + "\n");
+                        team_id = Long.parseLong(team_id_string);
+
+                        teams.add(new Team(
+                                team_id,
+                                json.getString("name"),
+                                users
+                        ));
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return teams;
         }
     }

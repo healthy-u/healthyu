@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Set_sponsor extends AppCompatActivity {
 
@@ -14,6 +15,10 @@ public class Set_sponsor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_sponsor);
         final Button btnLogout = (Button) findViewById(R.id.btnLogout);
+        final TextView sponsorname = (TextView) findViewById(R.id.sponsorname);
+
+        sponsorname.setText(Sponsor.loggedInSponsor.username);
+
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

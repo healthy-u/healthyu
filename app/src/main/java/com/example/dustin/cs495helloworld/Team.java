@@ -20,4 +20,13 @@ public class Team {
         name = team_name;
         members = team_members;
     }
+
+    public BigDecimal totalPoints() {
+        BigDecimal total = new BigDecimal("0.0");
+        for (int i = 0; i < members.size(); i++) {
+            total = total.add(members.get(i).lifetime_points);
+        }
+
+        return total;
+    }
 }

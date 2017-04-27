@@ -30,8 +30,6 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
             cname.add(Challenge.challenges.get(i).name);
         }
 
-        System.out.println(cname);
-
         listView =(ListView) findViewById(R.id.s_challenge_listview);
         listView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
