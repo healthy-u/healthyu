@@ -8,13 +8,27 @@
     tools:context="com.example.dustin.cs495helloworld.ViewRuns">
 
 
+    <FrameLayout
+        android:id="@+id/fragment1"
+        android:name="com.example.dustin.cs495helloworld.Fpersonal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout"
+        android:layout_below="@+id/linearLayout2">
+
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/tab_blue"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        android:id="@+id/linearLayout2">
 
         <LinearLayout
             android:id="@+id/llpersonal"
@@ -122,15 +136,6 @@
             android:textColor="@android:color/white" />
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/fragment1"
-        android:name="com.example.dustin.cs495helloworld.Fpersonal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1">
-
-    </FrameLayout>
 
 
 </RelativeLayout>
