@@ -1,5 +1,6 @@
 package com.example.dustin.cs495helloworld;
 
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,10 @@ import java.util.Date;
 
 public class CreateChal_sponsor extends AppCompatActivity {
 
+    EditText editstartdate;
+    EditText editenddate;
+    SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
     String type="p";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,15 @@ public class CreateChal_sponsor extends AppCompatActivity {
         Button createChalBtn = (Button) findViewById(R.id.createChalBtn);
         RadioButton personalTypeBtn = (RadioButton) findViewById(R.id.rb_personal);
         RadioButton teamTypeByn = (RadioButton) findViewById(R.id.rb_team);
+
+        editstartdate =(EditText)findViewById(R.id.edit_start_date);
+        editenddate =(EditText)findViewById(R.id.edit_end_date);
+
+        String currentDateandTime = sdf.format(new Date());
+        String tomorrowDateandTime = sdf.format(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
+
+        editstartdate.setText(currentDateandTime);
+        editenddate.setText(tomorrowDateandTime);
 
         createChalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +60,6 @@ public class CreateChal_sponsor extends AppCompatActivity {
             }
         });
 
-
     }
 
     void rdp(View v){
@@ -63,8 +76,6 @@ public class CreateChal_sponsor extends AppCompatActivity {
         EditText editname = (EditText)findViewById(R.id.edit_name);
         EditText editprizelink = (EditText)findViewById(R.id.edit_prize_link);
         EditText editpointsawarded =(EditText)findViewById(R.id.edit_points_awarded);
-        EditText editstartdate =(EditText)findViewById(R.id.edit_start_date);
-        EditText editenddate =(EditText)findViewById(R.id.edit_end_date);
 
         name=editname.getText().toString();
         prizelink=editprizelink.getText().toString();
@@ -75,10 +86,9 @@ public class CreateChal_sponsor extends AppCompatActivity {
         Date startDate = null;
         Date endDate = null;
 
-        SimpleDateFormat sdfr = new SimpleDateFormat("MM-dd-yyyy");
         try{
-            startDate = sdfr.parse(startdatestring);
-            endDate = sdfr.parse(enddatestring);
+            startDate = sdf.parse(startdatestring);
+            endDate = sdf.parse(enddatestring);
         }catch (Exception ex ){
             System.out.println(ex);
         }

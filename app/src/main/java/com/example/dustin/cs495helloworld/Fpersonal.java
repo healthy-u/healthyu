@@ -28,18 +28,29 @@ public class Fpersonal  extends Fragment {
         TextView l4 =(TextView) v.findViewById(R.id.textView22);
         TextView l5 =(TextView) v.findViewById(R.id.textView23);
 
+        String[] runs = {"------------------------------------", "------------------------------------", "------------------------------------",
+                "------------------------------------", "------------------------------------"};
 
+        for (int i = 0; i < Math.min(User.loggedInUser.runs.size(), 5); i++) {
+            Run r = User.loggedInUser.runs.get(i);
+            try{
+                runs[i] = Tables.dateFormat.format(r.startTime) + "- " + r.miles + " miles";
+            }
+            catch (Exception e) {
+                //do nothing
+            }
+        }
 
         uanme.setText(CRlst.getname(CRlst.uid));
         tRank.setText("null");
         cRank.setText("null");
-        LR.setText("null");
-        Most.setText("null");
-        l1.setText("Null");
-        l2.setText("Null");
-        l3.setText("Null");
-        l4.setText("Null");
-        l5.setText("Null");
+        LR.setText(User.loggedInUser.longestRun().miles.toString());
+        Most.setText(User.loggedInUser.mostStepsPerDay().toString());
+        l1.setText(runs[0]);
+        l2.setText(runs[1]);
+        l3.setText(runs[2]);
+        l4.setText(runs[3]);
+        l5.setText(runs[4]);
 
 
 

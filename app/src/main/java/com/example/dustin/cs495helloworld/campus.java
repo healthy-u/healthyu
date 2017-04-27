@@ -22,7 +22,8 @@ import static com.example.dustin.cs495helloworld.MainActivity.CRlst;
  */
 
 public class campus extends Fragment implements AdapterView.OnItemClickListener {
-    List<String> cname=new ArrayList<String>();
+    List<String> tname =new ArrayList<String>();
+    private List<Team> teams = new ArrayList<>();
     private ListView listView ;
     private ArrayAdapter myAdapter;
 
@@ -36,14 +37,17 @@ public class campus extends Fragment implements AdapterView.OnItemClickListener 
     }
 
     private void initAdapter(){
-        cname.clear();
-        for(int i=0;i<CRlst.size; i++){
-            cname.add(CRlst.getname(i));
+
+        teams = Tables.TeamTable.findAllTeamsForUserCampus(User.loggedInUser.id);
+
+        tname.clear();
+        for(int i=0;i<teams.size(); i++){
+            tname.add(teams.get(i).name + "- Total Points: " + teams.get(i).totalPoints());
         }
 
         myAdapter= new ArrayAdapter<String>(getActivity(),
                 R.layout.simple_list_item_1,
-                cname);
+                tname);
         listView.setAdapter(myAdapter);
         listView.setOnItemClickListener(this);
 
@@ -51,7 +55,7 @@ public class campus extends Fragment implements AdapterView.OnItemClickListener 
     }
     public void onItemClick(AdapterView<?> arg0, View vv, int p, long id) {
 
-        String uname=cname.get(p);
+        String uname= tname.get(p);
         int i=CRlst.getRunner(uname).id;
         Intent n=new Intent(getActivity(),runner_info.class);
         n.putExtra("id",i);

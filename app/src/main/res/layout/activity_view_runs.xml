@@ -38,25 +38,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llFriends"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/btn_blue"
-                android:onClick="buttonOnClick2"
-                android:gravity="center"
-                android:text="FRIENDS" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llteam"
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/t1"
-            android:text="Challengs List"
+            android:text="Challenges List"
             android:textSize="30dp"
             android:shadowColor="@color/black"
             android:shadowRadius="10"

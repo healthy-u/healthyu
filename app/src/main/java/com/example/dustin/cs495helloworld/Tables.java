@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
     public static final String baseUrl = "http://73.58.10.151";
     public static java.net.URL url;
+
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void initialize() {
         try {
@@ -277,7 +280,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
                 if (json.getString(("team_id")) != "null") team_id = Long.parseLong(json.getString(("team_id")));
                 System.out.println("first name: " + json.getString("user_firstname"));
 
-                return new User(
+                User u = new User(
                         Long.parseLong(json.getString("user_id")),
                         json.getString("user_firstname"),
                         json.getString("user_lastname"),
@@ -286,6 +289,10 @@ public final class Tables extends AsyncTask<String, Void, String> {
                         new BigDecimal(json.getString("lifetime_points")),
                         team_id
                 );
+
+                u.runs = RunTable.findForUser(u);
+
+                return u;
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -430,8 +437,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" + passedInChallenge.start_date
-                                + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name;
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" + dateFormat.format(passedInChallenge.start_date)
+                                + "&end_date=" + dateFormat.format(passedInChallenge.end_date) + "&event_name=" + passedInChallenge.name;
                         result[0] = (Long.parseLong(hitDB(FILE_NAME, "POST", paramString).getJSONObject(0).getString("id")));
                         System.out.println(result[0]);
                     } catch (Exception e) {
@@ -459,8 +466,8 @@ public final class Tables extends AsyncTask<String, Void, String> {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" + passedInChallenge.start_date
-                                + "&end_date=" + passedInChallenge.end_date + "&event_name=" + passedInChallenge.name + "&event_id=" + passedInChallenge.id;
+                        String paramString = "?sponsor_id=" + passedInChallenge.sponsor_id + "&prize_id=" + passedInChallenge.prize.id + "&start_date=" +dateFormat.format(passedInChallenge.start_date)
+                                + "&end_date=" + dateFormat.format(passedInChallenge.end_date) + "&event_name=" + passedInChallenge.name + "&event_id=" + passedInChallenge.id;
                         hitDB(FILE_NAME, "PUT", paramString);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -784,7 +791,6 @@ public final class Tables extends AsyncTask<String, Void, String> {
                     Long team_id = 0L;
                     if (team_id_string != "null") {
                         System.out.println("team json: " + json + "\n");
-                        System.out.println("users: " + users.get(0).fullname() + "\n");
                         team_id = Long.parseLong(team_id_string);
 
                         teams.add(new Team(

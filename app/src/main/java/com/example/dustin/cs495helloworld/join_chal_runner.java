@@ -17,7 +17,11 @@ public class join_chal_runner extends AppCompatActivity {
         EditText Tname,Tinfo,Ttag,Tdate;
         RadioButton rbp,rbt;
         int i=n.getIntExtra("index",0);
-        Challenge chal = Challenge.challenges.get(0);
+        System.out.println("i: " + i);
+        Challenge chal = Challenge.challenges.get(i);
+
+        System.out.println(chal.name);
+        System.out.println(chal.prize);
 
         Tname=(EditText) findViewById(R.id.edit_name);
         Tname.setText(chal.name);

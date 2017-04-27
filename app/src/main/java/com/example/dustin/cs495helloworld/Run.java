@@ -4,13 +4,14 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by dustin on 4/1/17.
  */
 
-public class Run {
+public class Run implements Comparable<Run> {
     long id = 0L;
     long user_id;
     BigDecimal miles = BigDecimal.ZERO;
@@ -51,5 +52,9 @@ public class Run {
     @Override
     public String toString() {
         return this.startTime.toString() + "-" + this.endTime.toString() + ": " + miles + "mi.";
+    }
+
+    public int compareTo(Run compared) {
+        return compared.miles.compareTo(this.miles);
     }
 }

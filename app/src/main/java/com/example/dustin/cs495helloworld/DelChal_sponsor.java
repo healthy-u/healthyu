@@ -25,10 +25,23 @@ public class DelChal_sponsor extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_del_chal_sponsor);
         this.initAdapter();
 
+        Button backBtn = (Button) findViewById(R.id.btn_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btnback(v);
+            }
+        });
+
+
         listView.setOnItemClickListener(this);
     }
 
     private void initAdapter(){
+        Challenge.challenges = Tables.ChallengeTable.findForSponsor(Sponsor.loggedInSponsor);
+
         cname.clear();
         for (int i=0;i<Challenge.challenges.size();i++){
             cname.add(Challenge.challenges.get(i).name);

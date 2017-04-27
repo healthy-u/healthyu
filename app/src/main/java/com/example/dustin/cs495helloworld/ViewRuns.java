@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class ViewRuns extends AppCompatActivity {
-    Button b1,b2,b3,b4;
+    Button b1,/*b2,*/b3,b4;
     Fragment f1 ,f2,f3,f4;
 
 
@@ -27,13 +27,13 @@ public class ViewRuns extends AppCompatActivity {
             }
         });
 
-        b2.setOnClickListener(new View.OnClickListener() {
+        /*b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 buttonOnClick2(v);
             }
-        });
+        });*/
 
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class ViewRuns extends AppCompatActivity {
 
     protected void init(){
         b1=(Button)findViewById(R.id.button1);
-        b2=(Button)findViewById(R.id.button2);
+        //b2=(Button)findViewById(R.id.button2);
         b3=(Button)findViewById(R.id.button3);
         b4=(Button)findViewById(R.id.button4);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -69,7 +69,7 @@ public class ViewRuns extends AppCompatActivity {
 
     protected void buttonOnClick1(View view) {
         b1.setTextColor(getResources().getColor(R.color.black));
-        b2.setTextColor(getResources().getColor(R.color.white));
+        //b2.setTextColor(getResources().getColor(R.color.white));
         b3.setTextColor(getResources().getColor(R.color.white));
         b4.setTextColor(getResources().getColor(R.color.white));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -81,7 +81,7 @@ public class ViewRuns extends AppCompatActivity {
 
     }
 
-    protected void buttonOnClick2(View view) {
+    /*protected void buttonOnClick2(View view) {
         b1.setTextColor(getResources().getColor(R.color.white));
         b2.setTextColor(getResources().getColor(R.color.black));
         b3.setTextColor(getResources().getColor(R.color.white));
@@ -96,10 +96,11 @@ public class ViewRuns extends AppCompatActivity {
 
         transaction.commit();
 
-    }
+    }*/
+
     protected void buttonOnClick3(View view) {
         b1.setTextColor(getResources().getColor(R.color.white));
-        b2.setTextColor(getResources().getColor(R.color.white));
+        //b2.setTextColor(getResources().getColor(R.color.white));
         b3.setTextColor(getResources().getColor(R.color.black));
         b4.setTextColor(getResources().getColor(R.color.white));
 
@@ -115,7 +116,7 @@ public class ViewRuns extends AppCompatActivity {
     }
     protected void buttonOnClick4(View view) {
         b1.setTextColor(getResources().getColor(R.color.white));
-        b2.setTextColor(getResources().getColor(R.color.white));
+        //b2.setTextColor(getResources().getColor(R.color.white));
         b3.setTextColor(getResources().getColor(R.color.white));
         b4.setTextColor(getResources().getColor(R.color.black));
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

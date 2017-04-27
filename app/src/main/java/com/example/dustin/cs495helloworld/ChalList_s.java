@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,22 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
         setContentView(R.layout.activity_chal_list_s);
         Challenge.challenges = Tables.ChallengeTable.findForSponsor(Sponsor.loggedInSponsor);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+
         cname.clear();
         for (int i=0;i<Challenge.challenges.size();i++){
-            cname.add(Challenge.challenges.get(i).name);
+            cname.add(Challenge.challenges.get(i).name + ": " + dateFormat.format(Challenge.challenges.get(i).start_date) + " - " + dateFormat.format(Challenge.challenges.get(i).end_date));
         }
+
+        Button backBtn = (Button) findViewById(R.id.btn_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                btnback(v);
+            }
+        });
 
         listView =(ListView) findViewById(R.id.s_challenge_listview);
         listView.setAdapter(new ArrayAdapter<String>(this,
@@ -53,7 +67,6 @@ public class ChalList_s extends AppCompatActivity implements AdapterView.OnItemC
     void btnback(View v){
         finish();
     }
-
 
 
 }
