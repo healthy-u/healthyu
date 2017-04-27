@@ -571,6 +571,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
             try {
                 for (int i = 0; i < jsons.length(); i++) {
                     JSONObject json = jsons.getJSONObject(i);
+                    System.out.println(json.toString());
                     challenges.add(new Challenge(
                             Long.parseLong(json.getString("event_id")),
                             Long.parseLong(json.getString("sponsor_id")),

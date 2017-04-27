@@ -58,8 +58,8 @@ public class DelChal_sponsor extends AppCompatActivity implements AdapterView.On
 
         Intent n = new Intent(DelChal_sponsor.this, challenge_info.class);
         final int x = p;
-        new AlertDialog.Builder(this).setTitle("Delete message box:")
-                .setMessage("Delete?")
+        new AlertDialog.Builder(this).setTitle("Delete Challenge:")
+                .setMessage("Are you sure?")
                 .setPositiveButton("Delete",new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog,int which){
                     Tables.ChallengeTable.delete(Challenge.challenges.get(x));

@@ -28,7 +28,7 @@ public class join_chal_runner extends AppCompatActivity {
         Tinfo=(EditText) findViewById(R.id.edit_points_awarded);
         Tinfo.setText(chal.id.toString());
         Ttag=(EditText) findViewById(R.id.edit_target);
-        Ttag.setText(String.valueOf(chal.prize.id));
+        //Ttag.setText(String.valueOf(chal.prize.id));
         Tdate=(EditText) findViewById(R.id.edit_end_date);
         Tdate.setText(chal.start_date + "-" + chal.end_date);
         rbp=(RadioButton)findViewById(R.id.rb_personal);
