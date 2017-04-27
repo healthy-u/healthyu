@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -41,7 +42,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
     private Sensor mStepDetectorSensor;
-    private int stepCount = 0;
+    private int totalstepCount = 0;
+    private int startStepCount;
+    private int endStepCount;
+    private int runStepCount;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        textView.setText("Current Number of Steps: 0");
     }
 
     @Override
@@ -81,6 +88,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onSensorChanged(SensorEvent event) {
 
+
+        if (event.sensor.getType()==18){
+            totalstepCount++;
+            textView.setText("Current Number of Steps: " + totalstepCount);
+        }
         /*final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
 
         Sensor sensor = event.sensor;
@@ -140,7 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         System.out.println(location.getLatitude() + "--------------------");
 
-        Marker startMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("You are here"));
+        final Marker startMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("You are here"));
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 21.0f);
         mMap.moveCamera(cameraUpdate);
@@ -163,6 +175,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 String toastText = "Run started";
                 if (onRun) toastText = "Run stopped";
+
+                if (!onRun) {
+                    startStepCount = totalstepCount;
+                }
+                else{
+                    endStepCount = totalstepCount;
+                    runStepCount = endStepCount - startStepCount;
+                }
 
                 onRun = !onRun;
 
