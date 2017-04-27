@@ -29,7 +29,7 @@
             android:shadowDx="5"
             android:shadowDy="5"
             android:shadowRadius="10"
-            android:text="Create Challenges Portal"
+            android:text="Sponsor Portal"
             android:textSize="30dp" />
 
 

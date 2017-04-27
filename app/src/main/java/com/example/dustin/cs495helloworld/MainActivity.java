@@ -91,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("LOGGED IN : " + User.loggedInUser);
             Intent nextScreen = new Intent(this, MapsActivity.class);
             startActivityForResult(nextScreen, 0);
-        }/* else if (currentSponsorId != 0L) {
+        } else if (currentSponsorId != 0L) {
             Sponsor.loggedInSponsor = Tables.SponsorTable.findForID(currentSponsorId);
             SaveSharedPreference.setUserName(this, 0L);
             System.out.println("******************");
             System.out.println("LOGGED IN SPONSOR: " + Sponsor.loggedInSponsor);
             Intent nextScreen = new Intent(this, Main_sponsor.class);
             startActivityForResult(nextScreen, 0);
-        } */else {
+        } else {
 
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override

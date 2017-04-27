@@ -532,13 +532,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
                     challenges.add(new Challenge(
                             Long.parseLong(json.getString("event_id")),
                             Long.parseLong(json.getString("sponsor_id")),
-                            new Prize(
-                                    Long.parseLong(json.getString("prize_id")),
-                                    Long.parseLong(json.getString("winner_id")),
-                                    json.getString("prize_link"),
-                                    Integer.parseInt(json.getString("points_awarded")),
-                                    (Long.parseLong(json.getString("winner_id")) > 0)
-                            ),
+                            PrizeTable.fromJson(json),
                             Database.dateFormat.parse(json.getString("start_date")),
                             Database.dateFormat.parse(json.getString("end_date")),
                             json.getString("event_name"),
@@ -781,8 +775,11 @@ public final class Tables extends AsyncTask<String, Void, String> {
 
         static public Prize fromJson(JSONObject json) {
             try {
+                String winner_id_string = json.getString("winner_id");
+                Long winner_id = null;
+                if (winner_id_string != null) Long.parseLong(winner_id_string);
                 return new Prize(Long.parseLong(json.getString("prize_id")),
-                        Long.parseLong(json.getString("winner_id")),
+                        winner_id,
                         json.getString("prize_link"),
                         Integer.parseInt(json.getString("point_value")),
                         (Long.parseLong(json.getString("winner_id")) > 0));
