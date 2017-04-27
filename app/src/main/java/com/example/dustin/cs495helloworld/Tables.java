@@ -25,6 +25,7 @@ public final class Tables extends AsyncTask<String, Void, String> {
     public static java.net.URL url;
 
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static int stepsInAMile = 2155;
 
     public static void initialize() {
         try {

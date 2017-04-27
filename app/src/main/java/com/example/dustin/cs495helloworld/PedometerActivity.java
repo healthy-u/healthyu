@@ -6,13 +6,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.math.BigDecimal;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import java.util.Date;
 
 
 public class PedometerActivity extends Activity implements SensorEventListener{
     private int stepCount;
     private int runStart;
+    private Date startTime;
 
     private TextView textView;
     private SensorManager mSensorManager;
@@ -24,6 +28,7 @@ public class PedometerActivity extends Activity implements SensorEventListener{
                 getSystemService(Context.SENSOR_SERVICE);
         mStepDetectorSensor = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        startTime = new Date();
     }
 
     protected void onResume() {
@@ -37,6 +42,10 @@ public class PedometerActivity extends Activity implements SensorEventListener{
     protected void onStop() {
         super.onStop();
         mSensorManager.unregisterListener(this, mStepDetectorSensor);
+        java.math.BigDecimal milesRan = java.math.BigDecimal.valueOf(stepCount / Tables.stepsInAMile);
+
+        User.loggedInUser.runs.add(Tables.RunTable.create(new Run(User.loggedInUser.id, milesRan, startTime, new Date())));
+
     }
 
     public void onSensorChanged (SensorEvent e)

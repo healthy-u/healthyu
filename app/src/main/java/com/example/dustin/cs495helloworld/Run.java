@@ -28,6 +28,10 @@ public class Run implements Comparable<Run> {
         this.endTime = endTime;
     }
 
+    public Run(long User_ID, BigDecimal Miles, Date startTime, Date endTime) {
+        this(0L, User_ID, BigDecimal.ZERO, null, startTime, endTime);
+    }
+
     public Run(long user_id, Date startTime) {
         this(0L, user_id, BigDecimal.ZERO, null, startTime, null);
     }
