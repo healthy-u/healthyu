@@ -14,7 +14,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,6 +30,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Date;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, SensorEventListener {
 
@@ -46,12 +50,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int startStepCount;
     private int endStepCount;
     private int runStepCount;
-    private TextView textView;
+    public TextView stepVisual;
+    public Date startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //LayoutInflater inflater = null;
+        //ViewGroup container= null;
         setContentView(R.layout.activity_maps);
+
+        //View v = inflater.inflate(R.layout.activity_maps, container, false);
+        stepVisual =(TextView) findViewById(R.id.textView8);
+        stepVisual.setText("Currrent Number of Steps: " + totalstepCount);
 
         overridePendingTransition(R.anim.transistion, R.anim.transistion);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -68,11 +79,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mStepDetectorSensor = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
+        mSensorManager.registerListener(this, mStepCounterSensor,
+
+                SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(this, mStepDetectorSensor,
+
+                SensorManager.SENSOR_DELAY_FASTEST);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //textView.setText("Current Number of Steps: 0");
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
@@ -89,13 +107,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onSensorChanged(SensorEvent event) {
 
 
-        if (event.sensor.getType()==18){
+        Sensor sensor = event.sensor;
+        if (sensor.getType()==Sensor.TYPE_STEP_DETECTOR||sensor.getType()==Sensor.TYPE_STEP_COUNTER){
             totalstepCount++;
-            textView.setText("Current Number of Steps: " + totalstepCount);
+            stepVisual.setText("Current Number of Steps: " + totalstepCount);
         }
+        //totalstepCount = (int) event.values[0];
+        //stepVisual.setText("Current Number of Steps: " + totalstepCount);
         /*final Button btnViewRuns = (Button) findViewById(R.id.btnViewRuns);
 
-        Sensor sensor = event.sensor;
+
         float[] values = event.values;
         int value = -1;
 
@@ -172,16 +193,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 SharedPreferences mSetate = getSharedPreferences("state", 0);
-
-                String toastText = "Run started";
-                if (onRun) toastText = "Run stopped";
+                String toastText = "Run started ";
+                if (onRun) toastText = "Run stopped ";
 
                 if (!onRun) {
                     startStepCount = totalstepCount;
+                    startTime = new Date();
                 }
                 else{
                     endStepCount = totalstepCount;
                     runStepCount = endStepCount - startStepCount;
+                    java.math.BigDecimal milesRan = java.math.BigDecimal.valueOf(runStepCount / Tables.stepsInAMile);
+
+                    //User.loggedInUser.runs.add(Tables.RunTable.create(new Run(User.loggedInUser.id, milesRan, startTime, new Date())));
                 }
 
                 onRun = !onRun;
