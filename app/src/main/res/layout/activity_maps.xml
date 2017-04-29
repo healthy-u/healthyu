@@ -78,10 +78,19 @@
             android:id="@+id/btnStartRun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/start_run"
             android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnStartRun"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
-            android:text="@string/start_run" />
+            android:layout_marginBottom="19dp"
+            android:text="Number Of Steps" />
 
     </RelativeLayout>
 
