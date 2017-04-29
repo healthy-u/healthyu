@@ -30,7 +30,7 @@ public class Set_sponsor extends AppCompatActivity {
                 startActivityForResult(nextScreen, 0);
             };
         });
-
+    
     }
 
 
